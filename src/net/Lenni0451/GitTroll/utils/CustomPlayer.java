@@ -41,6 +41,10 @@ public class CustomPlayer {
 		return this.player;
 	}
 	
+	public boolean isValid() {
+		return this.player != null && this.player.isOnline();
+	}
+	
 	public void sendPacket(final Packet<?> packet) {
 		((CraftPlayer) this.player).getHandle().playerConnection.sendPacket(packet);
 	}
@@ -56,7 +60,7 @@ public class CustomPlayer {
 	public void sendTitle(final String title, final String subtitle) {
 		this.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TITLE, new ChatComponentText(title)));
 		this.sendPacket(new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, new ChatComponentText(subtitle)));
-		this.sendPacket(new PacketPlayOutTitle(20, 20 * 3, 20));
+		this.sendPacket(new PacketPlayOutTitle(10, 20 * 3, 10));
 	}
 	
 }

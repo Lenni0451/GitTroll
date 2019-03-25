@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.Lenni0451.GitTroll.event.types.Event;
+import net.Lenni0451.GitTroll.utils.Logger;
 
 public class EventManager {
 	
@@ -32,11 +33,15 @@ public class EventManager {
 	}
 	
 	public void callEvent(final Event event) {
-		List<EventListener> nullEvents = this.eventListener.get(null);
-		List<EventListener> currentEvents = this.eventListener.get(event.getClass());
-		
-		if(nullEvents != null) nullEvents.forEach((EventListener listener) -> listener.onEvent(event));
-		if(currentEvents != null) currentEvents.forEach((EventListener listener) -> listener.onEvent(event));
+		try {
+			List<EventListener> nullEvents = this.eventListener.get(null);
+			List<EventListener> currentEvents = this.eventListener.get(event.getClass());
+			
+			if(nullEvents != null) nullEvents.forEach((EventListener listener) -> listener.onEvent(event));
+			if(currentEvents != null) currentEvents.forEach((EventListener listener) -> listener.onEvent(event));
+		} catch (Exception e) {
+			Logger.broadcastGitMessage("§cAn unknown error occurred whilst calling event §6" + event.getClass().getSimpleName() + ".");
+		}
 	}
 	
 }

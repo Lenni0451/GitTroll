@@ -15,9 +15,10 @@ import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.command.CommandWrongException;
-import net.Lenni0451.GitTroll.command.commands.TestCommand;
+import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
+import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
@@ -29,10 +30,13 @@ public class CommandManager implements Listener {
 	
 	
 	private List<CommandBase> commands;
+	
 	//Register commands here
-	public final TestCommand TestCommand = null;
+//	public final TestCommand TestCommand = null;
 	public final Vanish Vanish = null;
 	public final Untrust Untrust = null;
+	public final ResourceExploit ResourceExploit = null;
+	public final Help Help = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
@@ -144,6 +148,10 @@ public class CommandManager implements Listener {
 			}
 		}
 		return list;
+	}
+
+	public List<CommandBase> getCommands() {
+		return this.commands;
 	}
 	
 }

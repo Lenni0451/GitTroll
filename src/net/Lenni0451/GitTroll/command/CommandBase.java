@@ -2,6 +2,9 @@ package net.Lenni0451.GitTroll.command;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
@@ -36,6 +39,12 @@ public abstract class CommandBase {
 	
 	protected void commandWrong() {
 		throw new CommandWrongException();
+	}
+	
+	protected void tabCompletePlayers(final List<String> tabComplete) {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			tabComplete.add(player.getName());
+		}
 	}
 	
 	public abstract void execute(final CustomPlayer executor, final ArrayHelper args);
