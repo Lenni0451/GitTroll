@@ -11,4 +11,3 @@ Check out the [SpigotMC](https://www.spigotmc.org/wiki/buildtools/#1-8-8) websit
 ### ToDo
  - Implementing some basic commands
  - Releasing a official release
- - Add ToDo's from the code to this list

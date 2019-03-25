@@ -16,9 +16,12 @@ import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.command.CommandWrongException;
 import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
+import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
+import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
+import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
@@ -37,6 +40,9 @@ public class CommandManager implements Listener {
 	public final Untrust Untrust = null;
 	public final ResourceExploit ResourceExploit = null;
 	public final Help Help = null;
+	public final Heal Heal = null;
+	public final Explode Explode = null;
+	public final WorldReset WorldReset = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

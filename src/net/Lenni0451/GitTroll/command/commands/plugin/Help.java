@@ -30,7 +30,7 @@ public class Help extends CommandBase {
 			executor.sendGitMessage("§7-------------------- §6Help §7--------------------");
 			for(int i = 0; i < commandsPerPage; i++) {
 				int index = i + ((page - 1) * commandsPerPage);
-				if(index > GitTroll.getInstance().commandManager.getCommands().size()) {
+				if(index > GitTroll.getInstance().commandManager.getCommands().size() - 1) {
 					break;
 				}
 				CommandBase cmd = GitTroll.getInstance().commandManager.getCommands().get(index);
