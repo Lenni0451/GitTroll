@@ -23,7 +23,7 @@ public class Deop extends CommandBase {
 				return;
 			}
 			
-			if(vic.getPlayer().isOp()) {
+			if(!vic.getPlayer().isOp()) {
 				if(vic.equals(executor)) {
 					executor.sendGitMessage("§cYou are not opped.");
 				} else {
@@ -31,7 +31,7 @@ public class Deop extends CommandBase {
 				}
 				return;
 			}
-			vic.getPlayer().setOp(true);
+			vic.getPlayer().setOp(false);
 			if(vic.equals(executor)) {
 				executor.sendGitMessage("You have been deopped.");
 			} else {
