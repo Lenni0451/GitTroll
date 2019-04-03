@@ -47,6 +47,15 @@ public abstract class CommandBase {
 		}
 	}
 	
+	protected CustomPlayer parsePlayer(final String name, final CustomPlayer executor) {
+		CustomPlayer player = CustomPlayer.instanceOf(name);
+		if(player == null || !player.isValid()) {
+			executor.sendGitMessage("§cThe player is not online.");
+			throw new ReturnException();
+		}
+		return player;
+	}
+	
 	public abstract void execute(final CustomPlayer executor, final ArrayHelper args);
 	public abstract void tabComplete(final List<String> tabComplete, final ArrayHelper args);
 	

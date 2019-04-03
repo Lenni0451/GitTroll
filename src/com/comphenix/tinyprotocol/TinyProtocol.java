@@ -173,12 +173,15 @@ public abstract class TinyProtocol {
 				if (closed)
 					return;
 
-				Channel channel = getChannel(e.getPlayer());
+				// Changed: Added try catch
+				try {
+					Channel channel = getChannel(e.getPlayer());
 
-				// Don't inject players that have been explicitly uninjected
-				if (!uninjectedChannels.contains(channel)) {
-					injectPlayer(e.getPlayer());
-				}
+					// Don't inject players that have been explicitly uninjected
+					if (!uninjectedChannels.contains(channel)) {
+						injectPlayer(e.getPlayer());
+					}
+				} catch (Exception e2) {}
 			}
 
 			@EventHandler
@@ -193,7 +196,6 @@ public abstract class TinyProtocol {
 		plugin.getServer().getPluginManager().registerEvents(listener, plugin);
 	}
 
-	@SuppressWarnings("unchecked")
 	private void registerChannelHandler() {
 		Object mcServer = getMinecraftServer.get(Bukkit.getServer());
 		Object serverConnection = getServerConnection.get(mcServer);
@@ -425,6 +427,7 @@ public abstract class TinyProtocol {
 		}
 
 		// See ChannelInjector in ProtocolLib, line 590
+		// Changed: Added try catch
 		channel.eventLoop().execute(new Runnable() {
 
 			@Override
@@ -464,7 +467,10 @@ public abstract class TinyProtocol {
 
 			// Remove our handlers
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				uninjectPlayer(player);
+				// Changed: Added try catch
+				try {
+					uninjectPlayer(player);
+				} catch (Exception e) {}
 			}
 
 			// Clean up Bukkit

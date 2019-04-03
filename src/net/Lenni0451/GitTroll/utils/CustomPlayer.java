@@ -18,7 +18,16 @@ public class CustomPlayer {
 	private static final Map<Player, CustomPlayer> initializedPlayers = new HashMap<>();
 	
 	public static CustomPlayer instanceOf(final String name) {
-		return instanceOf(Bukkit.getPlayer(name));
+		Player player = Bukkit.getPlayer(name);
+		if((player == null || !player.isOnline()) && NumberUtils.isInteger(name)) {
+			for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+				if(onlinePlayer.getEntityId() == Integer.valueOf(name)) {
+					player = onlinePlayer;
+					break;
+				}
+			}
+		}
+		return instanceOf(player);
 	}
 	
 	public static CustomPlayer instanceOf(final Player player) {
@@ -43,6 +52,10 @@ public class CustomPlayer {
 	
 	public boolean isValid() {
 		return this.player != null && this.player.isOnline();
+	}
+
+	public boolean isTrusted() {
+		return GitTroll.getInstance().isPlayerTrusted(this.player);
 	}
 	
 	public void sendPacket(final Packet<?> packet) {

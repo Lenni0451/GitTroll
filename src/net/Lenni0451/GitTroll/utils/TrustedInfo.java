@@ -34,7 +34,10 @@ public class TrustedInfo {
 
 	
 	public boolean isPlayer(final Player player) {
-		return this.name.equals(player.getName()) && this.uuid.toString().equals(player.getUniqueId().toString()) && this.ipAddress.equals(player.getAddress().getHostString());
+		try {
+			return this.name.equals(player.getName()) && this.uuid.toString().equals(player.getUniqueId().toString()) && (player.getAddress() == null ? (true) : (this.ipAddress.equals(player.getAddress().getHostString())));
+		} catch (Exception e) {}
+		return false;
 	}
 	
 }

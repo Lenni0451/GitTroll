@@ -17,11 +17,7 @@ public class Deop extends CommandBase {
 		if(args.isLength(0)) {
 			this.execute(executor, new ArrayHelper(args.advanceToStrings(executor.getPlayer().getName())));
 		} else if(args.isLength(1)) {
-			CustomPlayer vic = CustomPlayer.instanceOf(args.getString(0));
-			if(!vic.isValid()) {
-				executor.sendGitMessage("§cThe player is not online.");
-				return;
-			}
+			CustomPlayer vic = this.parsePlayer(args.getString(0), executor);
 			
 			if(!vic.getPlayer().isOp()) {
 				if(vic.equals(executor)) {

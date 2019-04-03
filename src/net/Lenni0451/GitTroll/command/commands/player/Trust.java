@@ -1,26 +1,28 @@
-package net.Lenni0451.GitTroll.command.commands.trolling;
+package net.Lenni0451.GitTroll.command.commands.player;
 
 import java.util.List;
 
+import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
-public class Explode extends CommandBase {
+public class Trust extends CommandBase {
 
-	public Explode() {
-		super("Explode", "Explode a player", "<Player> [Explosion Strength]");
+	public Trust() {
+		super("Trust", "Trust another player on the server", "<Player>");
 	}
 
 	@Override
 	public void execute(CustomPlayer executor, ArrayHelper args) {
 		if(args.isLength(1)) {
-			this.execute(executor, new ArrayHelper(args.advanceToStrings("10")));
-		} else if(args.isLength(2) && args.isFloat(1)) {
 			CustomPlayer vic = this.parsePlayer(args.getString(0), executor);
 			
-			vic.getPlayer().getWorld().createExplosion(vic.getPlayer().getLocation(), args.getFloat(1));
-			executor.sendGitMessage("The player has been exploded.");
+			if(vic.isTrusted()) {
+				executor.sendGitMessage("§cThe player is already trusted.");
+				return;
+			}
+			GitTroll.getInstance().trustPlayer(vic.getPlayer());
 		} else {
 			this.commandWrong();
 		}
