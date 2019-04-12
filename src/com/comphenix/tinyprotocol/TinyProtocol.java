@@ -428,14 +428,14 @@ public abstract class TinyProtocol {
 
 		// See ChannelInjector in ProtocolLib, line 590
 		// Changed: Added try catch
-		channel.eventLoop().execute(new Runnable() {
-
-			@Override
-			public void run() {
-				channel.pipeline().remove(handlerName);
-			}
-
-		});
+		try {
+			channel.eventLoop().execute(new Runnable() {
+				@Override
+				public void run() {
+					channel.pipeline().remove(handlerName);
+				}
+			});
+		} catch (Exception e) {}
 	}
 
 	/**

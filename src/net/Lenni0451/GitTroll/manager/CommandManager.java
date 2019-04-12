@@ -24,9 +24,12 @@ import net.Lenni0451.GitTroll.command.commands.player.Trust;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
+import net.Lenni0451.GitTroll.command.commands.server.BungeeRedirect;
 import net.Lenni0451.GitTroll.command.commands.server.CrashServer;
 import net.Lenni0451.GitTroll.command.commands.server.SetSlots;
 import net.Lenni0451.GitTroll.command.commands.server.Stop;
+import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
+import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
@@ -56,6 +59,9 @@ public class CommandManager implements Listener {
 	public final SetSlots SetSlots = null;
 	public final Stop Stop = null;
 	public final CrashServer CrashServer = null;
+	public final DropHand DropHand = null;
+	public final DropInventory DropInventory = null;
+	public final BungeeRedirect BungeeRedirect = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
