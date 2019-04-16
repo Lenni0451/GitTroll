@@ -61,6 +61,10 @@ public class CustomPlayer {
 	public void sendPacket(final Packet<?> packet) {
 		((CraftPlayer) this.player).getHandle().playerConnection.sendPacket(packet);
 	}
+
+	public void sendMessage(final String message) {
+		this.player.sendMessage(message);
+	}
 	
 	public void sendGitMessage(final String message) {
 		this.player.sendMessage(GitTroll.PREFIX + message);

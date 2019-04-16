@@ -1,15 +1,10 @@
-package net.Lenni0451.GitTroll.command.commands.server;
+package net.Lenni0451.GitTroll.command.commands.bungeecord;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
-
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-
-import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
+import net.Lenni0451.GitTroll.utils.BungeeUtils;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
 public class BungeeRedirect extends CommandBase {
@@ -21,17 +16,17 @@ public class BungeeRedirect extends CommandBase {
 	@Override
 	public void execute(CustomPlayer executor, ArrayHelper args) {
 		if(args.isLength(2)) {
-			CustomPlayer vic = this.parsePlayer(args.getString(0), executor);
+			CustomPlayer vic = CustomPlayer.instanceOf(args.getString(0));
 			String server = args.getString(1);
 			
-			Bukkit.getMessenger().registerOutgoingPluginChannel(GitTroll.getInstance(), "BungeeCord");
+			if(vic != null && vic.isValid()) {
+				BungeeUtils bu = new BungeeUtils(vic.getPlayer());
+				bu.sendBungeeMessageToPlayer("Connect", server);
+			} else {
+				BungeeUtils bu = new BungeeUtils(executor.getPlayer());
+				bu.sendBungeeMessageToPlayer("ConnectOther", args.getString(0), server);
+			}
 			
-			ByteArrayDataOutput out = ByteStreams.newDataOutput();
-	        out.writeUTF("Connect");
-	        out.writeUTF(server);
-	        vic.getPlayer().sendPluginMessage(GitTroll.getInstance(), "BungeeCord", out.toByteArray());
-	        //Leave no traces
-			Bukkit.getMessenger().unregisterOutgoingPluginChannel(GitTroll.getInstance(), "BungeeCord");
 	        executor.sendGitMessage("The redirect has been executed.");
 		} else {
 			this.commandWrong();

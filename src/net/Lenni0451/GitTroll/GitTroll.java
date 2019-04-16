@@ -1,5 +1,6 @@
 package net.Lenni0451.GitTroll;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.comphenix.tinyprotocol.TinyProtocol;
 import io.netty.channel.Channel;
 import net.Lenni0451.GitTroll.event.EventManager;
 import net.Lenni0451.GitTroll.event.events.EventPlayerPacket;
+import net.Lenni0451.GitTroll.event.events.EventPluginMessage;
 import net.Lenni0451.GitTroll.event.events.EventServerPacket;
 import net.Lenni0451.GitTroll.event.events.EventTrustPlayer;
 import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
@@ -33,6 +35,10 @@ public class GitTroll extends JavaPlugin implements Listener {
 	
 	public static GitTroll getInstance() {
 		return instance;
+	}
+	
+	public static File getPluginFile() {
+		return instance.getFile();
 	}
 	
 	
@@ -102,6 +108,10 @@ public class GitTroll extends JavaPlugin implements Listener {
 		this.commandManager = new CommandManager();
 		
 		Bukkit.getPluginManager().registerEvents(this, this);
+		Bukkit.getMessenger().registerOutgoingPluginChannel(GitTroll.getInstance(), "BungeeCord");
+		Bukkit.getMessenger().registerIncomingPluginChannel(GitTroll.getInstance(), "BungeeCord", (String channel, Player player, byte[] data) -> {
+			this.eventManager.callEvent(new EventPluginMessage(channel, player, data));
+		});
 		Bukkit.getScheduler().runTaskLater(this, () -> this.eventManager.callEvent(new ServerLoadedEvent()), 1);
 		
 		this.protocolManager = new TinyProtocol(this) {
