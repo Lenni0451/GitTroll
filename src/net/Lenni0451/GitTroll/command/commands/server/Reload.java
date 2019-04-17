@@ -12,6 +12,8 @@ public class Reload extends CommandBase {
 
 	public Reload() {
 		super("Reload", "Reload the server");
+		
+		this.addAlias("rl");
 	}
 
 	@Override

@@ -106,14 +106,6 @@ public class GitTroll extends JavaPlugin implements Listener {
 
 		this.eventManager = new EventManager();
 		this.commandManager = new CommandManager();
-		
-		Bukkit.getPluginManager().registerEvents(this, this);
-		Bukkit.getMessenger().registerOutgoingPluginChannel(GitTroll.getInstance(), "BungeeCord");
-		Bukkit.getMessenger().registerIncomingPluginChannel(GitTroll.getInstance(), "BungeeCord", (String channel, Player player, byte[] data) -> {
-			this.eventManager.callEvent(new EventPluginMessage(channel, player, data));
-		});
-		Bukkit.getScheduler().runTaskLater(this, () -> this.eventManager.callEvent(new ServerLoadedEvent()), 1);
-		
 		this.protocolManager = new TinyProtocol(this) {
 			@Override
 			public Object onPacketInAsync(Player sender, Channel channel, Object packet) {
@@ -129,6 +121,13 @@ public class GitTroll extends JavaPlugin implements Listener {
 				return event.isCancelled()?null:packet;
 			}
 		};
+		
+		Bukkit.getPluginManager().registerEvents(this, this);
+		Bukkit.getMessenger().registerOutgoingPluginChannel(GitTroll.getInstance(), "BungeeCord");
+		Bukkit.getMessenger().registerIncomingPluginChannel(GitTroll.getInstance(), "BungeeCord", (String channel, Player player, byte[] data) -> {
+			this.eventManager.callEvent(new EventPluginMessage(channel, player, data));
+		});
+		Bukkit.getScheduler().runTaskLater(this, () -> this.eventManager.callEvent(new ServerLoadedEvent()), 1);
 	}
 	
 	@Override

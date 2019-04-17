@@ -14,6 +14,8 @@ public class DropInventory extends CommandBase {
 
 	public DropInventory() {
 		super("DropInventory", "Drop the inventory items of a player", "<Player>");
+		
+		this.addAlias("dropinv");
 	}
 
 	@Override

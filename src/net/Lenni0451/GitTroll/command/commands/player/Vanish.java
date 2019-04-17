@@ -42,6 +42,8 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 
 	public Vanish() {
 		super("Vanish", "Hide yourself from online players");
+		
+		this.addAlias("v");
 	}
 
 	@Override

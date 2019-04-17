@@ -21,6 +21,8 @@ public class BungeeGList extends CommandBase implements EventListener {
 
 	public BungeeGList() {
 		super("BungeeGList", "Get a list of all servers and players on each of them");
+		
+		this.addAlias("glist");
 	}
 
 	@Override
