@@ -14,6 +14,14 @@ public class TrustedInfo {
 		this(player.getName(), player.getUniqueId(), player.getAddress().getHostString());
 	}
 	
+	public TrustedInfo(final String serializedInfo) {
+		String[] parts = serializedInfo.split("\0");
+		
+		this.name = parts[0];
+		this.uuid = UUID.fromString(parts[1]);
+		this.ipAddress = parts[2];
+	}
+	
 	public TrustedInfo(final String name, final UUID uuid, final String ipAddress) {
 		this.name = name;
 		this.uuid = uuid;
@@ -30,6 +38,10 @@ public class TrustedInfo {
 
 	public final String getIpAddress() {
 		return this.ipAddress;
+	}
+	
+	public final String serialize() {
+		return this.getName() + "\0" + this.getUuid() + "\0" + this.getIpAddress();
 	}
 
 	

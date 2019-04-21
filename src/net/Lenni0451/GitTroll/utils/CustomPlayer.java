@@ -45,10 +45,16 @@ public class CustomPlayer {
 	private CustomPlayer(final Player player) {
 		this.player = player;
 	}
+	
 
 	public Player getPlayer() {
 		return this.player;
 	}
+
+	public CraftPlayer getCraftPlayer() {
+		return (CraftPlayer) this.player;
+	}
+	
 	
 	public boolean isValid() {
 		return this.player != null && this.player.isOnline();
@@ -58,8 +64,9 @@ public class CustomPlayer {
 		return GitTroll.getInstance().isPlayerTrusted(this.player);
 	}
 	
+	
 	public void sendPacket(final Packet<?> packet) {
-		((CraftPlayer) this.player).getHandle().playerConnection.sendPacket(packet);
+		this.getCraftPlayer().getHandle().playerConnection.sendPacket(packet);
 	}
 
 	public void sendMessage(final String message) {
