@@ -1,6 +1,7 @@
 package net.Lenni0451.GitTroll.command.commands.trolling;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -24,15 +25,26 @@ public class ChunkRenderGlitch extends CommandBase {
 			CustomPlayer vic = this.parsePlayer(args.getString(0), executor);
 			int range = 10;
 			Material block = Material.DIAMOND_BLOCK;
+			
+			while(true) {
+				try {
+					Material[] materials = Material.values();
+					block = materials[ThreadLocalRandom.current().nextInt(materials.length)];
+					if(block.isBlock()) {
+						break;
+					}
+				} catch (Exception e) {}
+			}
 
+			final Material finalBlock = block;
 			Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
 				for(int x = -range; x <= range; x++) {
 					for(int y = -range; y <= range; y++) {
 						for(int z = -range; z <= range; z++) {
 							Location newLoc = vic.getPlayer().getLocation().add(x * 80, y, z * 50);
 							Material origType = newLoc.getBlock().getType();
-							if(!origType.equals(Material.AIR) && !origType.equals(block)) {
-								vic.getPlayer().sendBlockChange(newLoc, block, (byte)0);
+							if(!origType.equals(Material.AIR) && !origType.equals(finalBlock)) {
+								vic.getPlayer().sendBlockChange(newLoc, finalBlock, (byte)0);
 							}
 						}
 					}
