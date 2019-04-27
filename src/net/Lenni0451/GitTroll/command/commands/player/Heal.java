@@ -23,6 +23,7 @@ public class Heal extends CommandBase {
 			vic.getPlayer().setFoodLevel(20);
 			vic.getPlayer().setSaturation(20);
 			vic.getPlayer().setFireTicks(0);
+			vic.getPlayer().setExhaustion(0);
 			if(vic.equals(executor)) {
 				executor.sendGitMessage("You have been healed.");
 			} else {

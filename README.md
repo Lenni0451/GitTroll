@@ -9,5 +9,4 @@ If you can't wait until an official release download and import the project into
 Check out the [SpigotMC](https://www.spigotmc.org/wiki/buildtools/#1-8-8) website for a tutorial how to build spigot.
 
 ### ToDo
- - Implementing some basic commands
  - Releasing a official release
