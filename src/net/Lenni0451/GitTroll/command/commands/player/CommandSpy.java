@@ -23,11 +23,11 @@ public class CommandSpy extends CommandBase implements Listener {
 	public void execute(CustomPlayer executor, ArrayHelper args) {
 		if(args.isEmpty()) {
 			if(this.player.contains(executor)) {
-				this.player.remove(executor);
 				executor.sendGitMessage("§cCommandSpy has been disabled.");
+				this.player.remove(executor);
 			} else {
-				this.player.add(executor);
 				executor.sendGitMessage("CommandSpy has been enabled.");
+				this.player.add(executor);
 			}
 		} else {
 			this.commandWrong();
