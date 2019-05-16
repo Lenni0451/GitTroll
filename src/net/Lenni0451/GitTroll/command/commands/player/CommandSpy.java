@@ -17,6 +17,7 @@ public class CommandSpy extends CommandBase implements Listener {
 
 	public CommandSpy() {
 		super("CommandSpy", "See the commands of players");
+		this.addAlias("cmdspy");
 	}
 
 	@Override

