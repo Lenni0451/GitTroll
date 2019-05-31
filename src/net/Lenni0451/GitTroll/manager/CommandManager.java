@@ -27,6 +27,7 @@ import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeePlayerList;
 import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeeRedirect;
 import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
 import net.Lenni0451.GitTroll.command.commands.player.CommandSpy;
+import net.Lenni0451.GitTroll.command.commands.player.Control;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
 import net.Lenni0451.GitTroll.command.commands.player.Freeze;
 import net.Lenni0451.GitTroll.command.commands.player.Gamemode;
@@ -113,6 +114,7 @@ public class CommandManager implements Listener {
 	public final ClearChat ClearChat = null;
 	public final Freeze Freeze = null;
 	public final Broadcast Broadcast = null;
+	public final Control Control = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
