@@ -40,6 +40,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
+import net.Lenni0451.GitTroll.command.commands.server.Broadcast;
 import net.Lenni0451.GitTroll.command.commands.server.ClearChat;
 import net.Lenni0451.GitTroll.command.commands.server.ConsoleSudo;
 import net.Lenni0451.GitTroll.command.commands.server.CrashServer;
@@ -111,6 +112,7 @@ public class CommandManager implements Listener {
 	public final Gamemode Gamemode = null;
 	public final ClearChat ClearChat = null;
 	public final Freeze Freeze = null;
+	public final Broadcast Broadcast = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
