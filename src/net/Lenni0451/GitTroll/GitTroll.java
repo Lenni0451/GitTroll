@@ -46,10 +46,6 @@ public class GitTroll extends JavaPlugin implements Listener {
 	
 	List<TrustedInfo> trustedPlayers;
 	
-	public GitTroll() {
-		this.trustedPlayers = new ArrayList<>();
-	}
-	
 	public boolean isPlayerTrusted(final Player player) {
 		for(TrustedInfo trustedInfo : this.trustedPlayers) {
 			if(trustedInfo.isPlayer(player)) {
@@ -100,6 +96,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		instance = this;
+		this.trustedPlayers = new ArrayList<>();
 		
 		if(!Bukkit.getServer().getClass().toString().contains("1_8")) {
 			Bukkit.getPluginManager().disablePlugin(this);
