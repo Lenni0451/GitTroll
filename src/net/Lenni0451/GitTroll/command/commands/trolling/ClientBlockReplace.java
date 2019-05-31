@@ -61,7 +61,7 @@ public class ClientBlockReplace extends CommandBase {
 					}
 				}
 				
-				executor.sendGitMessage("The block have been replaced for the player.");
+				executor.sendGitMessage("The blocks have been replaced for the player.");
 			});
 		} else {
 			this.commandWrong();

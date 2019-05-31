@@ -50,7 +50,7 @@ public class ChunkRenderGlitch extends CommandBase {
 					}
 				}
 				
-				executor.sendGitMessage("The block have been replaced for the player.");
+				executor.sendGitMessage("The unloaded chunks of the player should now be glitched.");
 			});
 		} else {
 			this.commandWrong();
