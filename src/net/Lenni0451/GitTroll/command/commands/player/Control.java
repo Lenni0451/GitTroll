@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -132,6 +134,20 @@ public class Control extends CommandBase implements Listener, EventListener {
 			CustomPlayer controller;
 			this.controlledPlayers.remove(controller = this.controlledPlayers.inverse().get(player));
 			controller.sendGitMessage("§cThe controlled player left the server. You now don't control a player anymore.");
+		}
+	}
+	
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent event) {
+		if(this.controlledPlayers.containsValue(CustomPlayer.instanceOf(event.getPlayer()))) {
+			event.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onBlockPlace(BlockBreakEvent event) {
+		if(this.controlledPlayers.containsValue(CustomPlayer.instanceOf(event.getPlayer()))) {
+			event.setCancelled(true);
 		}
 	}
 	
