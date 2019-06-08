@@ -8,10 +8,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import net.Lenni0451.GitTroll.command.CommandBase;
+import net.Lenni0451.GitTroll.event.EventListener;
+import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
+import net.Lenni0451.GitTroll.event.types.Event;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
-public class CommandSpy extends CommandBase implements Listener {
+public class CommandSpy extends CommandBase implements Listener, EventListener {
 	
 	List<CustomPlayer> player = new ArrayList<>();
 
@@ -43,6 +46,14 @@ public class CommandSpy extends CommandBase implements Listener {
 		for(CustomPlayer player : this.player) {
 			if(!player.getPlayer().equals(event.getPlayer()))
 				player.sendMessage("§7[§6CmdSpy§7] §e" + event.getPlayer().getName() + " §a" + event.getMessage());
+		}
+	}
+
+	@Override
+	public void onEvent(Event event) {
+		if(event instanceof EventUntrustPlayer) {
+			CustomPlayer player = CustomPlayer.instanceOf(((EventUntrustPlayer) event).getPlayer());
+			this.player.remove(player);
 		}
 	}
 

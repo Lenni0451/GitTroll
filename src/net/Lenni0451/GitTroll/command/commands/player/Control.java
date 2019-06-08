@@ -20,6 +20,7 @@ import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.event.events.EventPlayerPacket;
+import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
 import net.Lenni0451.GitTroll.event.types.Event;
 import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
@@ -112,6 +113,10 @@ public class Control extends CommandBase implements Listener, EventListener {
 					cPlayer.sendPacket(new PacketPlayOutAnimation(this.controlledPlayers.get(CustomPlayer.instanceOf(e.getPlayer())).getCraftPlayer().getHandle(), 0));
 				}
 			}
+		} else if(event instanceof EventUntrustPlayer) {
+			CustomPlayer player = CustomPlayer.instanceOf(((EventUntrustPlayer) event).getPlayer());
+			player.getPlayer().showPlayer(this.controlledPlayers.get(player).getPlayer());
+			this.controlledPlayers.remove(player);
 		}
 	}
 	
