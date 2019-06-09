@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,7 +24,7 @@ import net.Lenni0451.GitTroll.utils.ItemStackUtils;
 public class WorldManager extends CommandBase implements Listener {
 
 	public WorldManager() {
-		super("WorldManager", "Manage the worlds on the server");
+		super("WorldManager", "Manage the worlds on the server", "(create [normal/nether/end] [name])");
 	}
 
 	@Override
@@ -52,13 +53,45 @@ public class WorldManager extends CommandBase implements Listener {
 			}
 			
 			executor.getPlayer().openInventory(inv);
+		} else if(args.isLength(3)) {
+			String type = args.getString(1);
+			if(!type.equalsIgnoreCase("normal") && !type.equalsIgnoreCase("nether") && !type.equalsIgnoreCase("end")) {
+				executor.sendGitMessage("§cInvalid world type.");
+				return;
+			}
+			Environment env;
+			if(type.equalsIgnoreCase("normal")) {
+				env = Environment.NORMAL;
+			} else if(type.equalsIgnoreCase("nether")) {
+				env = Environment.NETHER;
+			} else {
+				env = Environment.THE_END;
+			}
+			
+			String name = args.getString(2);
+			if(Bukkit.getWorld(name) != null) {
+				executor.sendGitMessage("§cA world with this name already exists.");
+				return;
+			}
+			WorldCreator worldCreator = new WorldCreator(name).environment(env);
+			executor.sendGitMessage("Generating world...");
+			Bukkit.createWorld(worldCreator);
+			executor.sendGitMessage("The world has been created!");
 		} else {
 			this.commandWrong();
 		}
 	}
 
 	@Override
-	public void tabComplete(List<String> tabComplete, ArrayHelper args) {}
+	public void tabComplete(List<String> tabComplete, ArrayHelper args) {
+		if(args.isEmpty()) {
+			tabComplete.add("create");
+		} else if(args.isLength(1) && args.getString(0).equalsIgnoreCase("create")) {
+			tabComplete.add("normal");
+			tabComplete.add("nether");
+			tabComplete.add("end");
+		}
+	}
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
@@ -101,6 +134,9 @@ public class WorldManager extends CommandBase implements Listener {
 				player.sendGitMessage("Teleported to the world.");
 			} else {
 				try {
+					for(Player wPlayer : world.getPlayers()) {
+						wPlayer.teleport(new Location(Bukkit.getWorlds().get(0), world.getSpawnLocation().getX(), world.getHighestBlockYAt(world.getSpawnLocation()) + 1, world.getSpawnLocation().getZ()));
+					}
 					Bukkit.unloadWorld(world, true);
 					FileUtils.deleteDirectory(world.getWorldFolder());
 					player.sendGitMessage("Successfully deleted world.");
