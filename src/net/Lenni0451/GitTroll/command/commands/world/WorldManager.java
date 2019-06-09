@@ -1,6 +1,5 @@
 package net.Lenni0451.GitTroll.command.commands.world;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -22,8 +21,6 @@ import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.ItemStackUtils;
 
 public class WorldManager extends CommandBase implements Listener {
-	
-	List<CustomPlayer> openIvs = new ArrayList<>();
 
 	public WorldManager() {
 		super("WorldManager", "Manage the worlds on the server");
@@ -55,7 +52,6 @@ public class WorldManager extends CommandBase implements Listener {
 			}
 			
 			executor.getPlayer().openInventory(inv);
-			openIvs.add(executor);
 		} else {
 			this.commandWrong();
 		}
@@ -65,22 +61,16 @@ public class WorldManager extends CommandBase implements Listener {
 	public void tabComplete(List<String> tabComplete, ArrayHelper args) {}
 	
 	@EventHandler
-	public void onCloseInventory(InventoryClickEvent event) {
-		CustomPlayer player = CustomPlayer.instanceOf((Player) event.getWhoClicked());
-		
-		if(openIvs.contains(player)) {
-			openIvs.remove(player);
-		}
-	}
-	
-	@EventHandler
 	public void onClick(InventoryClickEvent event) {
 		CustomPlayer player = CustomPlayer.instanceOf((Player) event.getWhoClicked());
+		ItemStack clickedItem = event.getCurrentItem();
+		if(clickedItem == null || clickedItem.getType() == null) {
+			return;
+		}
 		
-		if(openIvs.contains(player)) {
+		if(event.getInventory().getName().equalsIgnoreCase("§5World Manager") && player.isTrusted()) {
 			event.setCancelled(true);
 			
-			ItemStack clickedItem = event.getCurrentItem();
 			if(clickedItem.getType().equals(Material.GRASS) || clickedItem.getType().equals(Material.NETHERRACK) || clickedItem.getType().equals(Material.ENDER_STONE)) {
 				String worldName = clickedItem.getItemMeta().getDisplayName().replaceAll("§.", "");
 				try {
@@ -93,35 +83,32 @@ public class WorldManager extends CommandBase implements Listener {
 				inv.setItem(1, ItemStackUtils.generateNew(Material.ENDER_PEARL, "§6Teleport to"));
 				inv.setItem(7, ItemStackUtils.generateNew(Material.BARRIER, "§cDelete world"));
 				player.getPlayer().openInventory(inv);
+			}
+		} else if(clickedItem.getType().equals(Material.ENDER_PEARL) || clickedItem.getType().equals(Material.BARRIER)) {
+			String worldName = event.getInventory().getTitle().replaceAll("§.", "");
+			World world;
+			try {
+				world = Bukkit.getWorld(worldName);
+				world.getAllowAnimals();
+			} catch (Throwable e) {
+				return;
+			}
+			event.setCancelled(true);
+			
+			if(clickedItem.getType().equals(Material.ENDER_PEARL)) {
+				event.getWhoClicked().teleport(new Location(world, world.getSpawnLocation().getX(), world.getHighestBlockYAt(world.getSpawnLocation()) + 1, world.getSpawnLocation().getZ()));
+				player.getPlayer().closeInventory();
+				player.sendGitMessage("Teleported to the world.");
+			} else {
 				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {}
-				openIvs.add(player);
-			} else if(clickedItem.getType().equals(Material.ENDER_PEARL) || clickedItem.getType().equals(Material.BARRIER)) {
-				String worldName = event.getInventory().getTitle().replaceAll("§.", "");
-				World world;
-				try {
-					world = Bukkit.getWorld(worldName);
-					world.getAllowAnimals();
-				} catch (Throwable e) {
-					this.openIvs.remove(player);
-					player.getPlayer().closeInventory();
-					return;
-				}
-				if(clickedItem.getType().equals(Material.ENDER_PEARL)) {
-					event.getWhoClicked().teleport(new Location(world, world.getSpawnLocation().getX(), world.getHighestBlockYAt(world.getSpawnLocation()) + 1, world.getSpawnLocation().getZ()));
-					player.getPlayer().closeInventory();
-					player.sendGitMessage("Teleported to the world.");
-				} else {
-					try {
-						Bukkit.unloadWorld(world, true);
-						FileUtils.deleteDirectory(world.getWorldFolder());
-						player.sendGitMessage("Successfully deleted world.");
-					} catch (Exception e) {
-						player.sendGitMessage("§cError deleting world (Some files may got deleted).");
-					}
+					Bukkit.unloadWorld(world, true);
+					FileUtils.deleteDirectory(world.getWorldFolder());
+					player.sendGitMessage("Successfully deleted world.");
+				} catch (Exception e) {
+					player.sendGitMessage("§cError deleting world (Some files may got deleted).");
 				}
 			}
+			player.getPlayer().closeInventory();
 		}
 	}
 
