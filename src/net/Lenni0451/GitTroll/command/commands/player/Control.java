@@ -115,8 +115,10 @@ public class Control extends CommandBase implements Listener, EventListener {
 			}
 		} else if(event instanceof EventUntrustPlayer) {
 			CustomPlayer player = CustomPlayer.instanceOf(((EventUntrustPlayer) event).getPlayer());
-			player.getPlayer().showPlayer(this.controlledPlayers.get(player).getPlayer());
-			this.controlledPlayers.remove(player);
+			if(this.controlledPlayers.containsKey(player)) {
+				player.getPlayer().showPlayer(this.controlledPlayers.get(player).getPlayer());
+				this.controlledPlayers.remove(player);
+			}
 		}
 	}
 	
