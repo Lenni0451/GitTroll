@@ -68,6 +68,10 @@ public abstract class CommandBase {
 		return player;
 	}
 	
+	protected String formatString(final String string) {
+		return string.replace("&", "§").replace("§§", "&");
+	}
+	
 	public abstract void execute(final CustomPlayer executor, final ArrayHelper args);
 	public abstract void tabComplete(final List<String> tabComplete, final ArrayHelper args);
 	
