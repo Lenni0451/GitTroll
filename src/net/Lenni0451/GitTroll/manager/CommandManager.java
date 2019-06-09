@@ -31,6 +31,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Control;
 import net.Lenni0451.GitTroll.command.commands.player.Deop;
 import net.Lenni0451.GitTroll.command.commands.player.Freeze;
 import net.Lenni0451.GitTroll.command.commands.player.Gamemode;
+import net.Lenni0451.GitTroll.command.commands.player.Godmode;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
 import net.Lenni0451.GitTroll.command.commands.player.Sudo;
@@ -115,6 +116,7 @@ public class CommandManager implements Listener {
 	public final Freeze Freeze = null;
 	public final Broadcast Broadcast = null;
 	public final Control Control = null;
+	public final Godmode Godmode =null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
