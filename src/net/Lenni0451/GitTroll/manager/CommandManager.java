@@ -56,6 +56,7 @@ import net.Lenni0451.GitTroll.command.commands.server.Reload;
 import net.Lenni0451.GitTroll.command.commands.server.ServerLag;
 import net.Lenni0451.GitTroll.command.commands.server.SetSlots;
 import net.Lenni0451.GitTroll.command.commands.server.Stop;
+import net.Lenni0451.GitTroll.command.commands.trolling.AntiRespawn;
 import net.Lenni0451.GitTroll.command.commands.trolling.ChunkRenderGlitch;
 import net.Lenni0451.GitTroll.command.commands.trolling.ClientBlockReplace;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
@@ -127,6 +128,7 @@ public class CommandManager implements Listener {
 	public final Unban Unban = null;
 	public final Kick Kick = null;
 	public final ForceKick ForceKick = null;
+	public final AntiRespawn AntiRespawn = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
