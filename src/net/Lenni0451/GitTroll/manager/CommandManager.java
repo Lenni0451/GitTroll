@@ -65,6 +65,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
 import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
+import net.Lenni0451.GitTroll.command.commands.trolling.SoundSpam;
 import net.Lenni0451.GitTroll.command.commands.world.WorldManager;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
@@ -133,6 +134,7 @@ public class CommandManager implements Listener {
 	public final AntiRespawn AntiRespawn = null;
 	public final ChangeCommandPrefix ChangeCommandPrefix = null;
 	public final DeathLoop DeathLoop = null;
+	public final SoundSpam SoundSpam = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

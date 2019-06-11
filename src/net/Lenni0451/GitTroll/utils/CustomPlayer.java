@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_8_R3.CraftSound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import net.Lenni0451.GitTroll.GitTroll;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PacketPlayOutNamedSoundEffect;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle.EnumTitleAction;
 
@@ -99,6 +102,10 @@ public class CustomPlayer {
 		if(this.player.getHealth() > 0) {
 			this.player.setHealth(0);
 		}
+	}
+
+	public void playSound(final Sound sound) {
+		this.sendPacket(new PacketPlayOutNamedSoundEffect(CraftSound.getSound(sound), this.player.getLocation().getX(), this.player.getLocation().getY(), this.player.getLocation().getZ(), 100, 1));
 	}
 	
 }
