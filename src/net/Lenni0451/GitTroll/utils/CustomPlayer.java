@@ -15,7 +15,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutTitle.EnumTitleAction;
 
 public class CustomPlayer {
 	
-	private static final Map<Player, CustomPlayer> initializedPlayers = new HashMap<>();
+	private static final Map<Integer, CustomPlayer> initializedPlayers = new HashMap<>();
 	
 	public static CustomPlayer instanceOf(final String name) {
 		Player player = Bukkit.getPlayer(name);
@@ -32,15 +32,19 @@ public class CustomPlayer {
 	
 	public static CustomPlayer instanceOf(final Player player) {
 		if(player == null) return null;
-		if(initializedPlayers.containsKey(player)) return initializedPlayers.get(player);
+		if(initializedPlayers.containsKey(player.hashCode())) {
+			CustomPlayer customPlayer = initializedPlayers.get(player.hashCode());
+			customPlayer.setPlayer(player);
+			return customPlayer;
+		}
 		
 		CustomPlayer customPlayer = new CustomPlayer(player);
-		initializedPlayers.put(player, customPlayer);
+		initializedPlayers.put(player.hashCode(), customPlayer);
 		return customPlayer;
 	}
 	
 	
-	private final Player player;
+	private Player player;
 	
 	private CustomPlayer(final Player player) {
 		this.player = player;
@@ -49,6 +53,10 @@ public class CustomPlayer {
 
 	public Player getPlayer() {
 		return this.player;
+	}
+	
+	private void setPlayer(final Player player) {
+		this.player = player;
 	}
 
 	public CraftPlayer getCraftPlayer() {
@@ -85,6 +93,12 @@ public class CustomPlayer {
 		this.sendPacket(new PacketPlayOutTitle(EnumTitleAction.TITLE, new ChatComponentText(title)));
 		this.sendPacket(new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, new ChatComponentText(subtitle)));
 		this.sendPacket(new PacketPlayOutTitle(10, 20 * 3, 10));
+	}
+
+	public void kill() {
+		if(this.player.getHealth() > 0) {
+			this.player.setHealth(0);
+		}
 	}
 	
 }

