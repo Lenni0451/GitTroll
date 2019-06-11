@@ -193,14 +193,8 @@ public class GitTroll extends JavaPlugin implements Listener {
 				CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("The command prefix is §6" + CommandManager.COMMAND_PREFIX + "§a.");
 			}
 		}
-		System.out.println(event.getPlayer().getClass().getName() + "@" + Integer.toHexString(event.getPlayer().hashCode()));
 		//Old packet injector (Still there if you need it)
 //		new PacketInjector(event.getPlayer()).inject();
-	}
-	
-	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event) {
-		System.out.println(event.getPlayer().getClass().getName() + "@" + Integer.toHexString(event.getPlayer().hashCode()));
 	}
 	
 }
