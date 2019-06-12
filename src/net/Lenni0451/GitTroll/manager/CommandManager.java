@@ -66,6 +66,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
 import net.Lenni0451.GitTroll.command.commands.trolling.FartRocket;
+import net.Lenni0451.GitTroll.command.commands.trolling.ItemScareOff;
 import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
 import net.Lenni0451.GitTroll.command.commands.trolling.SoundSpam;
 import net.Lenni0451.GitTroll.command.commands.world.WorldManager;
@@ -139,6 +140,7 @@ public class CommandManager implements Listener {
 	public final SoundSpam SoundSpam = null;
 	public final FartRocket FartRocket = null;
 	public final BlackScreen BlackScreen = null;
+	public final ItemScareOff ItemScareOff = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

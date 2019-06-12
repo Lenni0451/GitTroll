@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.CraftSound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -106,6 +107,10 @@ public class CustomPlayer {
 
 	public void playSound(final Sound sound) {
 		this.sendPacket(new PacketPlayOutNamedSoundEffect(CraftSound.getSound(sound), this.player.getLocation().getX(), this.player.getLocation().getY(), this.player.getLocation().getZ(), 100, 1));
+	}
+
+	public Location getLocation() {
+		return this.player.getLocation();
 	}
 	
 }
