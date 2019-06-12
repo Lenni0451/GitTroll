@@ -37,6 +37,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Godmode;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Kick;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
+import net.Lenni0451.GitTroll.command.commands.player.SendGameStateChange;
 import net.Lenni0451.GitTroll.command.commands.player.Sudo;
 import net.Lenni0451.GitTroll.command.commands.player.Title;
 import net.Lenni0451.GitTroll.command.commands.player.Trust;
@@ -141,6 +142,7 @@ public class CommandManager implements Listener {
 	public final FartRocket FartRocket = null;
 	public final BlackScreen BlackScreen = null;
 	public final ItemScareOff ItemScareOff = null;
+	public final SendGameStateChange SendGameStateChange = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
