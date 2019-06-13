@@ -22,7 +22,7 @@ public class ItemScareOff extends CommandBase implements Listener {
 	private List<CustomPlayer> players = new ArrayList<>();
 
 	public ItemScareOff() {
-		super("ItemScareOff", "", "<Player>");
+		super("ItemScareOff", "Let items be scared of a player", "<Player>");
 		
 		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
 			try {
