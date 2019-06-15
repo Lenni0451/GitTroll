@@ -61,8 +61,10 @@ import net.Lenni0451.GitTroll.command.commands.server.SetSlots;
 import net.Lenni0451.GitTroll.command.commands.server.Stop;
 import net.Lenni0451.GitTroll.command.commands.trolling.AntiRespawn;
 import net.Lenni0451.GitTroll.command.commands.trolling.BlackScreen;
+import net.Lenni0451.GitTroll.command.commands.trolling.BlockChunkUpdates;
 import net.Lenni0451.GitTroll.command.commands.trolling.ChunkRenderGlitch;
 import net.Lenni0451.GitTroll.command.commands.trolling.ClientBlockReplace;
+import net.Lenni0451.GitTroll.command.commands.trolling.ClientCloseScreen;
 import net.Lenni0451.GitTroll.command.commands.trolling.DeathLoop;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
@@ -145,6 +147,8 @@ public class CommandManager implements Listener {
 	public final ItemScareOff ItemScareOff = null;
 	public final SendGameStateChange SendGameStateChange = null;
 	public final BlockConsole BlockConsole = null;
+	public final ClientCloseScreen ClientCloseScreen = null;
+	public final BlockChunkUpdates BlockChunkUpdates = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
