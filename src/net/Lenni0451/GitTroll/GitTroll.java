@@ -22,6 +22,7 @@ import net.Lenni0451.GitTroll.event.events.EventPluginMessage;
 import net.Lenni0451.GitTroll.event.events.EventServerPacket;
 import net.Lenni0451.GitTroll.event.events.EventTrustPlayer;
 import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
+import net.Lenni0451.GitTroll.event.events.PluginDisableEvent;
 import net.Lenni0451.GitTroll.event.events.ServerLoadedEvent;
 import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
@@ -147,6 +148,8 @@ public class GitTroll extends JavaPlugin implements Listener {
 	@Override
 	public void onDisable() {
 		Logger.broadcastGitMessage("§cThe plugin is being disabled.");
+		
+		this.eventManager.callEvent(new PluginDisableEvent());
 		
 		try {
 			Field f = MinecraftServer.class.getDeclaredField("stopLock");

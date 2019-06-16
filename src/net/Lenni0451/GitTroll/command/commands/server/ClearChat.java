@@ -14,6 +14,7 @@ public class ClearChat extends CommandBase {
 
 	public ClearChat() {
 		super("ClearChat", "Clear the server chat");
+		this.addAlias("cc");
 	}
 
 	@Override

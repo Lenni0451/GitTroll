@@ -39,8 +39,9 @@ public class EventManager {
 			
 			if(nullEvents != null) nullEvents.forEach((EventListener listener) -> listener.onEvent(event));
 			if(currentEvents != null) currentEvents.forEach((EventListener listener) -> listener.onEvent(event));
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			Logger.broadcastGitMessage("§cAn unknown error occurred whilst calling event §6" + event.getClass().getSimpleName() + ".");
+			Logger.broadcastGitMessage("§aException§7: §6" + e.getClass().getSimpleName());
 		}
 	}
 	

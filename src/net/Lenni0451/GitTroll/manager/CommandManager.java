@@ -60,19 +60,23 @@ import net.Lenni0451.GitTroll.command.commands.server.ServerLag;
 import net.Lenni0451.GitTroll.command.commands.server.SetSlots;
 import net.Lenni0451.GitTroll.command.commands.server.Stop;
 import net.Lenni0451.GitTroll.command.commands.trolling.AntiRespawn;
+import net.Lenni0451.GitTroll.command.commands.trolling.BlackHole;
 import net.Lenni0451.GitTroll.command.commands.trolling.BlackScreen;
 import net.Lenni0451.GitTroll.command.commands.trolling.BlockChunkUpdates;
 import net.Lenni0451.GitTroll.command.commands.trolling.ChunkRenderGlitch;
 import net.Lenni0451.GitTroll.command.commands.trolling.ClientBlockReplace;
 import net.Lenni0451.GitTroll.command.commands.trolling.ClientCloseScreen;
 import net.Lenni0451.GitTroll.command.commands.trolling.DeathLoop;
+import net.Lenni0451.GitTroll.command.commands.trolling.DemoScreen;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
+import net.Lenni0451.GitTroll.command.commands.trolling.ElderGuardian;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
 import net.Lenni0451.GitTroll.command.commands.trolling.FartRocket;
 import net.Lenni0451.GitTroll.command.commands.trolling.ItemScareOff;
 import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
 import net.Lenni0451.GitTroll.command.commands.trolling.SoundSpam;
+import net.Lenni0451.GitTroll.command.commands.utils.RandomGenerator;
 import net.Lenni0451.GitTroll.command.commands.world.WorldManager;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
@@ -149,6 +153,10 @@ public class CommandManager implements Listener {
 	public final BlockConsole BlockConsole = null;
 	public final ClientCloseScreen ClientCloseScreen = null;
 	public final BlockChunkUpdates BlockChunkUpdates = null;
+	public final RandomGenerator RandomGenerator = null;
+	public final ElderGuardian ElderGuardian = null;
+	public final BlackHole BlackHole = null;
+	public final DemoScreen DemoScreen = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

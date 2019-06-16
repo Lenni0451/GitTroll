@@ -12,12 +12,12 @@ import net.Lenni0451.GitTroll.utils.CustomPlayer;
 public class Ban extends CommandBase {
 
 	public Ban() {
-		super("Ban", "Ban a player", "<Player>");
+		super("Ban", "Ban a player", "<Player> [Message]");
 	}
 
 	@Override
 	public void execute(CustomPlayer executor, ArrayHelper args) {
-		if(args.isLength(1)) {
+		if(args.isLarger(0)) {
 			CustomPlayer vic = this.parsePlayer(args.getString(0), executor);
 			
 			if(Bukkit.getBanList(Type.NAME).isBanned(vic.getPlayer().getName()) || Bukkit.getBanList(Type.IP).isBanned(vic.getPlayer().getName())) {
@@ -25,7 +25,9 @@ public class Ban extends CommandBase {
 				return;
 			}
 			
-			String banMessage = "You are banned from this server!\nReason: Banned by an operator.";
+			String banMessage = args.getAsString(1);
+			if(banMessage.isEmpty())
+				banMessage = "You are banned from this server!\nReason: Banned by an operator.";
 			Bukkit.getBanList(Type.NAME).addBan(vic.getPlayer().getName(), banMessage, null, null);
 			vic.getPlayer().kickPlayer(banMessage);
 			executor.sendGitMessage("The player has been banned.");
