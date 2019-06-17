@@ -29,7 +29,7 @@ public class SoundSpam extends CommandBase implements Listener {
 					player.playSound(Sound.values()[rnd.nextInt(Sound.values().length)]);
 				}
 			} catch (Throwable e) {}
-		}, 0, 1);
+		}, 1, 1);
 	}
 
 	@Override

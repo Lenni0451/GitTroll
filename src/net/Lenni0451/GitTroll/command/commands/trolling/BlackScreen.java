@@ -27,7 +27,7 @@ public class BlackScreen extends CommandBase implements Listener {
 					player.sendPacket(new PacketPlayOutGameStateChange(4, 0));
 				}
 			} catch (Throwable e) {}
-		}, 0, 1);
+		}, 1, 1);
 	}
 
 	@Override

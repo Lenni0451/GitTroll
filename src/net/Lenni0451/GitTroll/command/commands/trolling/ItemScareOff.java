@@ -39,7 +39,7 @@ public class ItemScareOff extends CommandBase implements Listener {
 					} catch (Exception e) {}
 				}
 			} catch (Throwable e) {}
-		}, 0, 1);
+		}, 1, 1);
 	}
 
 	@Override

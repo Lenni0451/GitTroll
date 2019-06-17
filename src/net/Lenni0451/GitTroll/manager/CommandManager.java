@@ -73,7 +73,9 @@ import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.ElderGuardian;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
 import net.Lenni0451.GitTroll.command.commands.trolling.FartRocket;
+import net.Lenni0451.GitTroll.command.commands.trolling.GlassBox;
 import net.Lenni0451.GitTroll.command.commands.trolling.ItemScareOff;
+import net.Lenni0451.GitTroll.command.commands.trolling.PissRocket;
 import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
 import net.Lenni0451.GitTroll.command.commands.trolling.SoundSpam;
 import net.Lenni0451.GitTroll.command.commands.utils.RandomGenerator;
@@ -157,6 +159,8 @@ public class CommandManager implements Listener {
 	public final ElderGuardian ElderGuardian = null;
 	public final BlackHole BlackHole = null;
 	public final DemoScreen DemoScreen = null;
+	public final PissRocket PissRocket = null;
+	public final GlassBox GlassBox = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

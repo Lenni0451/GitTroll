@@ -4,28 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.util.Vector;
 
 import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
-public class DeathLoop extends CommandBase implements Listener {
+public class PissRocket extends CommandBase {
 
-	private List<CustomPlayer> players = new ArrayList<>();
+private List<CustomPlayer> players = new ArrayList<>();
 	
-	public DeathLoop() {
-		super("DeathLoop", "Kill a player in an infinite loop", "<Player>");
+	@SuppressWarnings("deprecation")
+	public PissRocket() {
+		super("PissRocket", "Let a player piss himself", "<Player>");
 		
 		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
 			try {
-				for(CustomPlayer player : players) {
-					player.kill();
+				for(CustomPlayer player : this.players) {
+					player.getPlayer().setVelocity(new Vector(0, 1, 0));
+					player.getPlayer().getWorld().playSound(player.getPlayer().getLocation(), Sound.FIZZ, 10, 1);
+					player.getPlayer().getWorld().spawnFallingBlock(player.getLocation(), Material.WOOL, (byte)4);
 				}
-			} catch (Exception e) {}
+			} catch (Throwable e) {}
 		}, 1, 1);
 	}
 
@@ -34,11 +40,13 @@ public class DeathLoop extends CommandBase implements Listener {
 		if(args.isLength(1)) {
 			CustomPlayer vic = this.parsePlayer(args.getString(0), executor);
 			
-			if(this.players.remove(vic)) {
-				executor.sendGitMessage("§cThe player is now free to go.");
+			if(players.remove(vic)) {
+				vic.getPlayer().setAllowFlight(false);
+				executor.sendGitMessage("§cThe player no longer pisses him self.");
 			} else {
+				vic.getPlayer().setAllowFlight(true);
 				this.players.add(vic);
-				executor.sendGitMessage("The player is now stuck in a death loop.");
+				executor.sendGitMessage("The player now pisses him self.");
 			}
 		} else {
 			this.commandWrong();

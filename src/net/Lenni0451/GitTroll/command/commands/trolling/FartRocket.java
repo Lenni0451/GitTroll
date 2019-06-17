@@ -32,7 +32,7 @@ public class FartRocket extends CommandBase implements Listener {
 					player.getPlayer().setSneaking(!player.getPlayer().isSneaking());
 				}
 			} catch (Throwable e) {}
-		}, 0, 1);
+		}, 1, 1);
 	}
 
 	@Override
