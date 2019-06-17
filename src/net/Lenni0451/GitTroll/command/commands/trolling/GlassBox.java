@@ -1,6 +1,5 @@
 package net.Lenni0451.GitTroll.command.commands.trolling;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -11,8 +10,6 @@ import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
 public class GlassBox extends CommandBase {
-
-	private List<CustomPlayer> players = new ArrayList<>();
 	
 	public GlassBox() {
 		super("GlassBox", "Trap a player inside a clientside glassbox", "<Player>");

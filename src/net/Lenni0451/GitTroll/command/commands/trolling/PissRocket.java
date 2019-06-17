@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -18,7 +17,7 @@ import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
 public class PissRocket extends CommandBase {
 
-private List<CustomPlayer> players = new ArrayList<>();
+	private List<CustomPlayer> players = new ArrayList<>();
 	
 	@SuppressWarnings("deprecation")
 	public PissRocket() {
