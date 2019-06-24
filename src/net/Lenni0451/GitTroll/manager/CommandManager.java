@@ -68,6 +68,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.ClientBlockReplace;
 import net.Lenni0451.GitTroll.command.commands.trolling.ClientCloseScreen;
 import net.Lenni0451.GitTroll.command.commands.trolling.DeathLoop;
 import net.Lenni0451.GitTroll.command.commands.trolling.DemoScreen;
+import net.Lenni0451.GitTroll.command.commands.trolling.DownloadTerrain;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.ElderGuardian;
@@ -161,6 +162,7 @@ public class CommandManager implements Listener {
 	public final DemoScreen DemoScreen = null;
 	public final PissRocket PissRocket = null;
 	public final GlassBox GlassBox = null;
+	public final DownloadTerrain DownloadTerrain = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
