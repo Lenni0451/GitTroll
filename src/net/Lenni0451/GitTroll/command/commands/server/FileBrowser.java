@@ -91,7 +91,7 @@ public class FileBrowser extends CommandBase implements Listener, EventListener 
 			}
 		} else {
 			boolean hasParent = currentFile.getParentFile() != null;
-			int neededSlots = currentFile.listFiles().length + (hasParent ? 2 : 0);
+			int neededSlots = currentFile.listFiles().length + (hasParent ? 3 : 2);
 			int rows = Double.valueOf(Math.ceil((double) neededSlots / 9D)).intValue();
 			
 			inv = Bukkit.createInventory(null, rows * 9, "§6Folder §5" + (currentFile.getName().isEmpty() ? "root" : currentFile.getName()));
@@ -100,10 +100,14 @@ public class FileBrowser extends CommandBase implements Listener, EventListener 
 					ItemStack stack = ItemStackUtils.generateNew(Material.ARROW, "§6Back");
 					inv.addItem(stack);
 				}
-				{ //Spacer
-					ItemStack stack = ItemStackUtils.generateNew(Material.STAINED_GLASS_PANE, " ", 1, 15);
-					inv.addItem(stack);
-				}
+			}
+			{ //Home
+				ItemStack stack = ItemStackUtils.generateNew(Material.WOOD_DOOR, "§6Home");
+				inv.addItem(stack);
+			}
+			{ //Spacer
+				ItemStack stack = ItemStackUtils.generateNew(Material.STAINED_GLASS_PANE, " ", 1, 15);
+				inv.addItem(stack);
 			}
 			List<String> dirs = new ArrayList<>();
 			List<String> files = new ArrayList<>();
@@ -156,6 +160,9 @@ public class FileBrowser extends CommandBase implements Listener, EventListener 
 				
 				if(clickedItem.getItemMeta().getDisplayName().equals("§6Back") && clickedItem.getType().equals(Material.ARROW)) {
 					this.currentFiles.replace(player, current.getParentFile());
+					this.openGui(player);
+				} else if(clickedItem.getItemMeta().getDisplayName().equals("§6Home") && clickedItem.getType().equals(Material.WOOD_DOOR)) {
+					this.currentFiles.remove(player);
 					this.openGui(player);
 				} else if(clickedItem.getType().equals(Material.PAPER) || clickedItem.getType().equals(Material.CHEST)) {
 					String file = clickedItem.getItemMeta().getDisplayName().replaceAll("§.", "");
