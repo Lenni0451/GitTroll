@@ -23,7 +23,7 @@ public class BlackHole extends CommandBase {
 	private int unstableTime = -1;
 
 	public BlackHole() {
-		super("BlackHole", "Spawn a black hole which sucks in everything around it");
+		super("BlackHole", "Spawn a black hole which sucks in everything around it", "[Unstable Ticks]");
 		
 		Bukkit.getScheduler().runTaskTimerAsynchronously(GitTroll.getInstance(), () -> {
 			if(location == null) {

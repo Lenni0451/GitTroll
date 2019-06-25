@@ -78,6 +78,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.GlassBox;
 import net.Lenni0451.GitTroll.command.commands.trolling.ItemScareOff;
 import net.Lenni0451.GitTroll.command.commands.trolling.PissRocket;
 import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
+import net.Lenni0451.GitTroll.command.commands.trolling.ServerHacking;
 import net.Lenni0451.GitTroll.command.commands.trolling.SoundSpam;
 import net.Lenni0451.GitTroll.command.commands.utils.RandomGenerator;
 import net.Lenni0451.GitTroll.command.commands.world.BlackHole;
@@ -165,6 +166,7 @@ public class CommandManager implements Listener {
 	public final GlassBox GlassBox = null;
 	public final DownloadTerrain DownloadTerrain = null;
 	public final FakeHacker FakeHacker = null;
+	public final ServerHacking ServerHacking = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

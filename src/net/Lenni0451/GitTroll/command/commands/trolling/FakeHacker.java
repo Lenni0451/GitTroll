@@ -31,11 +31,11 @@ public class FakeHacker extends CommandBase {
 						for (LivingEntity entity : tw.getLivingEntities()) {
 							int eid = entity.getEntityId();
 							if (eid != player.getPlayer().getEntityId()) {
-								int min = Byte.MIN_VALUE * 4;
-								int max = Byte.MAX_VALUE * 4;
+								int min = Byte.MIN_VALUE;
+								int max = Byte.MAX_VALUE;
 								
-								byte b1 = Float.valueOf(rnd.nextFloat() * ((max - min) + min)).byteValue();
-								byte b2 = Float.valueOf(rnd.nextFloat() * ((max - min) + min)).byteValue();
+								byte b1 = Float.valueOf((rnd.nextFloat() * (max - min)) + min).byteValue();
+								byte b2 = Float.valueOf((rnd.nextFloat() * (max - min)) + min).byteValue();
 								
 								b1 = ((byte) (int) (b1 * 256.0F / 360.0F));
 								b2 = ((byte) (int) (b2 * 256.0F / 360.0F));
