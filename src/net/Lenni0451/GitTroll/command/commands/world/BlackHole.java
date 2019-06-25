@@ -1,4 +1,4 @@
-package net.Lenni0451.GitTroll.command.commands.trolling;
+package net.Lenni0451.GitTroll.command.commands.world;
 
 import java.util.List;
 
