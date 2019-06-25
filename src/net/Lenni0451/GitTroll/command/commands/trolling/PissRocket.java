@@ -6,8 +6,6 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
 
 import net.Lenni0451.GitTroll.GitTroll;
@@ -57,11 +55,6 @@ public class PissRocket extends CommandBase {
 		if(args.isEmpty()) {
 			this.tabCompletePlayers(tabComplete);
 		}
-	}
-	
-	@EventHandler
-	public void onQuit(PlayerQuitEvent event) {
-		this.players.remove(CustomPlayer.instanceOf(event.getPlayer()));
 	}
 
 }

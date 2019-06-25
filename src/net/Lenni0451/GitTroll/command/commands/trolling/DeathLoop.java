@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
-public class DeathLoop extends CommandBase implements Listener {
+public class DeathLoop extends CommandBase {
 
 	private List<CustomPlayer> players = new ArrayList<>();
 	
@@ -50,11 +47,6 @@ public class DeathLoop extends CommandBase implements Listener {
 		if(args.isEmpty()) {
 			this.tabCompletePlayers(tabComplete);
 		}
-	}
-	
-	@EventHandler
-	public void onQuit(PlayerQuitEvent event) {
-		this.players.remove(CustomPlayer.instanceOf(event.getPlayer()));
 	}
 
 }

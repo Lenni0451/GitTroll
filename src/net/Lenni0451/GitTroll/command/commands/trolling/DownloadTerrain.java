@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import net.Lenni0451.GitTroll.command.CommandBase;
@@ -18,7 +19,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutRespawn;
 import net.minecraft.server.v1_8_R3.WorldSettings.EnumGamemode;
 import net.minecraft.server.v1_8_R3.WorldType;
 
-public class DownloadTerrain extends CommandBase implements EventListener {
+public class DownloadTerrain extends CommandBase implements Listener, EventListener {
 	
 	List<CustomPlayer> player = new ArrayList<>();
 

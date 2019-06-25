@@ -3,6 +3,10 @@ package net.Lenni0451.GitTroll.command.commands.trolling;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
+
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.event.events.EventServerPacket;
@@ -16,7 +20,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutMapChunk;
 import net.minecraft.server.v1_8_R3.PacketPlayOutMapChunkBulk;
 import net.minecraft.server.v1_8_R3.PacketPlayOutMultiBlockChange;
 
-public class BlockChunkUpdates extends CommandBase implements EventListener {
+public class BlockChunkUpdates extends CommandBase implements Listener, EventListener {
 
 	private List<CustomPlayer> players = new ArrayList<>();
 	
@@ -58,6 +62,11 @@ public class BlockChunkUpdates extends CommandBase implements EventListener {
 				((EventServerPacket) event).setCancelled(true);
 			}
 		}
+	}
+	
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event) {
+		this.players.remove(CustomPlayer.instanceOf(event.getPlayer()));
 	}
 	
 }

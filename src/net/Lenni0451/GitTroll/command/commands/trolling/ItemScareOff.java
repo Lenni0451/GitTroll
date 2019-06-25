@@ -9,7 +9,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
 
 import net.Lenni0451.GitTroll.GitTroll;
@@ -63,11 +62,6 @@ public class ItemScareOff extends CommandBase implements Listener {
 		if(args.isEmpty()) {
 			this.tabCompletePlayers(tabComplete);
 		}
-	}
-	
-	@EventHandler
-	public void onQuit(PlayerQuitEvent event) {
-		this.players.remove(CustomPlayer.instanceOf(event.getPlayer()));
 	}
 	
 	@EventHandler
