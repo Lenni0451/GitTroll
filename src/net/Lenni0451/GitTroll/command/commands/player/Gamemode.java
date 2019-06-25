@@ -26,7 +26,7 @@ public class Gamemode extends CommandBase {
 			try {
 				boolean set = false;
 				if(args.isInteger(0)) {
-					executor.getPlayer().setGameMode(GameMode.getByValue(args.getInteger(0)));
+					vic.getPlayer().setGameMode(GameMode.getByValue(args.getInteger(0)));
 					set = true;
 				} else {
 					for(GameMode mode : GameMode.values()) {
