@@ -45,7 +45,7 @@ public class FakeHacker extends CommandBase {
 					} catch (Throwable e) {}
 				}
 			} catch (Throwable e) {}
-		}, 0, 1);
+		}, 1, 1);
 	}
 
 	@Override

@@ -1,10 +1,12 @@
 package net.Lenni0451.GitTroll.command.commands.world;
 
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -18,12 +20,46 @@ import net.Lenni0451.GitTroll.utils.CustomPlayer;
 public class BlackHole extends CommandBase {
 	
 	private Location location = null;
+	private int unstableTime = -1;
 
 	public BlackHole() {
 		super("BlackHole", "Spawn a black hole which sucks in everything around it");
 		
-		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimerAsynchronously(GitTroll.getInstance(), () -> {
 			if(location == null) {
+				return;
+			}
+			
+			double divider = 9;
+			int range = 20;
+			
+			if(this.unstableTime > 0) {
+				this.unstableTime--;
+			} else if(this.unstableTime == 0) {
+				try {
+					Random rnd = new Random();
+					
+					for(Entity entity : location.getWorld().getNearbyEntities(location, range, range, range)) {
+						if(entity instanceof Player && CustomPlayer.instanceOf((Player) entity).isTrusted()) {
+							continue;
+						}
+						try {
+							double distance = entity.getLocation().distance(location);
+							if(distance < range) {
+								double maxMin = range - distance;
+								maxMin /= 6;
+								double velocityX = rnd.nextDouble() * (maxMin * 2) - maxMin;
+								double velocityZ = rnd.nextDouble() * (maxMin * 2) - maxMin;
+								entity.setVelocity(new Vector(velocityX, maxMin / 2, velocityZ));
+							}
+						} catch (Exception e) {}
+					}
+				} catch (Throwable e) {}
+				location.getWorld().playSound(location, Sound.EXPLODE, 100, 1);
+				location.getWorld().playEffect(location, Effect.EXPLOSION_HUGE, 50);
+				
+				this.location = null;
+				this.unstableTime = -1;
 				return;
 			}
 			
@@ -31,8 +67,6 @@ public class BlackHole extends CommandBase {
 				location.getWorld().playEffect(location, Effect.PARTICLE_SMOKE, 1, 1000);
 			
 			try {
-				double divider = 9;
-				int range = 20;
 				for(Entity entity : location.getWorld().getNearbyEntities(location, range, range, range)) {
 					if(entity instanceof Player && CustomPlayer.instanceOf((Player) entity).isTrusted()) {
 						continue;
@@ -63,6 +97,21 @@ public class BlackHole extends CommandBase {
 				location = null;
 				executor.sendGitMessage("§cThe black hole has been destroyed.");
 			}
+		} else if(args.isLength(1) && args.isInteger(0)) {
+			if(this.location != null) {
+				executor.sendGitMessage("§cThere is already a black hole.");
+				return;
+			}
+			
+			this.unstableTime = args.getInteger(0);
+			if(this.unstableTime <= 0) {
+				this.unstableTime = -1;
+				executor.sendGitMessage("§cThe unstable time has to be larger than 0.");
+				return;
+			}
+			executor.sendGitMessage("The unstable time has been set.");
+			
+			this.execute(executor, ArrayHelper.empty());
 		} else {
 			this.commandWrong();
 		}
