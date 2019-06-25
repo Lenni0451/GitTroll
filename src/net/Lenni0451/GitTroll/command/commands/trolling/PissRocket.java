@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.util.Vector;
@@ -38,7 +39,7 @@ public class PissRocket extends CommandBase {
 			CustomPlayer vic = this.parsePlayer(args.getString(0), executor);
 			
 			if(players.remove(vic)) {
-				vic.getPlayer().setAllowFlight(false);
+				vic.getPlayer().setAllowFlight(vic.getPlayer().getGameMode().equals(GameMode.CREATIVE) || vic.getPlayer().getGameMode().equals(GameMode.SPECTATOR));
 				executor.sendGitMessage("§cThe player no longer pisses him self.");
 			} else {
 				vic.getPlayer().setAllowFlight(true);
