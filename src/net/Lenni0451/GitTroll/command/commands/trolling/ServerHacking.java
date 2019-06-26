@@ -137,7 +137,12 @@ public class ServerHacking extends CommandBase {
 	}
 	
 	private void throwFakeException() {
-		new OutOfMemoryError().printStackTrace();
+		System.err.println("java.lang.OutOfMemoryError\r\n" + 
+				"        at net.minecraft.server.v1_8_R3.MinecraftServer.B(MinecraftServer.java:723)\r\n" + 
+				"        at net.minecraft.server.v1_8_R3.DedicatedServer.B(DedicatedServer.java:374)\r\n" + 
+				"        at net.minecraft.server.v1_8_R3.MinecraftServer.A(MinecraftServer.java:654)\r\n" + 
+				"        at net.minecraft.server.v1_8_R3.MinecraftServer.run(MinecraftServer.java:557)\r\n" + 
+				"        at java.lang.Thread.run(Unknown Source)");
 	}
 	
 	private int randomLocation(final Random rnd) {
