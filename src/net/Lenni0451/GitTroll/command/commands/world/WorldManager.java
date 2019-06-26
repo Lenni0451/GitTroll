@@ -24,7 +24,7 @@ import net.Lenni0451.GitTroll.utils.ItemStackUtils;
 public class WorldManager extends CommandBase implements Listener {
 
 	public WorldManager() {
-		super("WorldManager", "Manage the worlds on the server", "(create [normal/nether/end] [name])");
+		super("WorldManager", "Manage the worlds on the server", "(create [normal/nether/end] <name> [seed])");
 	}
 
 	@Override
@@ -74,6 +74,30 @@ public class WorldManager extends CommandBase implements Listener {
 				return;
 			}
 			WorldCreator worldCreator = new WorldCreator(name).environment(env);
+			executor.sendGitMessage("Generating world...");
+			Bukkit.createWorld(worldCreator);
+			executor.sendGitMessage("The world has been created!");
+		} else if(args.isLength(4) && args.isLong(3)) {
+			String type = args.getString(1);
+			if(!type.equalsIgnoreCase("normal") && !type.equalsIgnoreCase("nether") && !type.equalsIgnoreCase("end")) {
+				executor.sendGitMessage("§cInvalid world type.");
+				return;
+			}
+			Environment env;
+			if(type.equalsIgnoreCase("normal")) {
+				env = Environment.NORMAL;
+			} else if(type.equalsIgnoreCase("nether")) {
+				env = Environment.NETHER;
+			} else {
+				env = Environment.THE_END;
+			}
+			
+			String name = args.getString(2);
+			if(Bukkit.getWorld(name) != null) {
+				executor.sendGitMessage("§cA world with this name already exists.");
+				return;
+			}
+			WorldCreator worldCreator = new WorldCreator(name).environment(env).seed(args.getLong(3));
 			executor.sendGitMessage("Generating world...");
 			Bukkit.createWorld(worldCreator);
 			executor.sendGitMessage("The world has been created!");
