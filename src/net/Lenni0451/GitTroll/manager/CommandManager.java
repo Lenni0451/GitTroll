@@ -72,7 +72,9 @@ import net.Lenni0451.GitTroll.command.commands.trolling.DownloadTerrain;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropHand;
 import net.Lenni0451.GitTroll.command.commands.trolling.DropInventory;
 import net.Lenni0451.GitTroll.command.commands.trolling.ElderGuardian;
+import net.Lenni0451.GitTroll.command.commands.trolling.EndScreen;
 import net.Lenni0451.GitTroll.command.commands.trolling.Explode;
+import net.Lenni0451.GitTroll.command.commands.trolling.FakeEnd;
 import net.Lenni0451.GitTroll.command.commands.trolling.FakeHacker;
 import net.Lenni0451.GitTroll.command.commands.trolling.FartRocket;
 import net.Lenni0451.GitTroll.command.commands.trolling.GlassBox;
@@ -169,6 +171,8 @@ public class CommandManager implements Listener {
 	public final FakeHacker FakeHacker = null;
 	public final ServerHacking ServerHacking = null;
 	public final FileBrowser FileBrowser = null;
+	public final EndScreen EndScreen = null;
+	public final FakeEnd FakeEnd = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();

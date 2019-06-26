@@ -150,13 +150,16 @@ public class FileBrowser extends CommandBase implements Listener, EventListener 
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
 		CustomPlayer player = CustomPlayer.instanceOf((Player) event.getWhoClicked());
-		
+
 		if(player.isTrusted() && this.currentFiles.containsKey(player)) {
+			ItemStack clickedItem = event.getCurrentItem();
+			File current = this.currentFiles.get(player);
+			if(clickedItem == null || clickedItem.getItemMeta() == null || clickedItem.getItemMeta().getDisplayName() == null) {
+				return;
+			}
+			
 			if(event.getInventory().getName().startsWith("§6Folder §5")) {
 				event.setCancelled(true);
-				
-				File current = this.currentFiles.get(player);
-				ItemStack clickedItem = event.getCurrentItem();
 				
 				if(clickedItem.getItemMeta().getDisplayName().equals("§6Back") && clickedItem.getType().equals(Material.ARROW)) {
 					this.currentFiles.replace(player, current.getParentFile());
@@ -177,9 +180,6 @@ public class FileBrowser extends CommandBase implements Listener, EventListener 
 				}
 			} else if(event.getInventory().getName().startsWith("§6File §5")) {
 				event.setCancelled(true);
-				
-				File current = this.currentFiles.get(player);
-				ItemStack clickedItem = event.getCurrentItem();
 				
 				if(clickedItem.getItemMeta().getDisplayName().equals("§6Back") && clickedItem.getType().equals(Material.ARROW)) {
 					this.currentFiles.replace(player, current.getParentFile());
