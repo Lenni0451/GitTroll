@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import net.Lenni0451.GitTroll.command.CommandBase;
@@ -103,6 +104,17 @@ public class InteractTroll extends CommandBase implements Listener {
 
 			default:
 				break;
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event) {
+		CustomPlayer player = CustomPlayer.instanceOf(event.getPlayer());
+		if(player.isTrusted()) {
+			if(this.trollBlocks.containsKey(event.getBlock().getLocation().toString())) {
+				this.trollBlocks.remove(event.getBlock().getLocation().toString());
+				player.sendGitMessage("The troll block has been removed.");
 			}
 		}
 	}
