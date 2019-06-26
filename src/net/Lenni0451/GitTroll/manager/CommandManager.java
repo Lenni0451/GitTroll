@@ -78,6 +78,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.FakeEnd;
 import net.Lenni0451.GitTroll.command.commands.trolling.FakeHacker;
 import net.Lenni0451.GitTroll.command.commands.trolling.FartRocket;
 import net.Lenni0451.GitTroll.command.commands.trolling.GlassBox;
+import net.Lenni0451.GitTroll.command.commands.trolling.InteractTroll;
 import net.Lenni0451.GitTroll.command.commands.trolling.ItemScareOff;
 import net.Lenni0451.GitTroll.command.commands.trolling.PissRocket;
 import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
@@ -173,6 +174,7 @@ public class CommandManager implements Listener {
 	public final FileBrowser FileBrowser = null;
 	public final EndScreen EndScreen = null;
 	public final FakeEnd FakeEnd = null;
+	public final InteractTroll InteractTroll = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
