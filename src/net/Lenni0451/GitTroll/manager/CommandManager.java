@@ -80,6 +80,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.FartRocket;
 import net.Lenni0451.GitTroll.command.commands.trolling.GlassBox;
 import net.Lenni0451.GitTroll.command.commands.trolling.InteractTroll;
 import net.Lenni0451.GitTroll.command.commands.trolling.ItemScareOff;
+import net.Lenni0451.GitTroll.command.commands.trolling.JumpScare;
 import net.Lenni0451.GitTroll.command.commands.trolling.PissRocket;
 import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
 import net.Lenni0451.GitTroll.command.commands.trolling.ServerHacking;
@@ -175,6 +176,7 @@ public class CommandManager implements Listener {
 	public final EndScreen EndScreen = null;
 	public final FakeEnd FakeEnd = null;
 	public final InteractTroll InteractTroll = null;
+	public final JumpScare JumpScare = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
@@ -249,7 +251,7 @@ public class CommandManager implements Listener {
 		cPlayer.sendGitMessage("§cThe command does not exist.");
 		cPlayer.sendGitMessage("Use §6" + COMMAND_PREFIX + "help §afor help.");
 		return true;
-	}
+	}  
 	
 	@EventHandler
 	public void onTabComplete(PlayerChatTabCompleteEvent event) {
