@@ -33,6 +33,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Deop;
 import net.Lenni0451.GitTroll.command.commands.player.ForceKick;
 import net.Lenni0451.GitTroll.command.commands.player.Freeze;
 import net.Lenni0451.GitTroll.command.commands.player.Gamemode;
+import net.Lenni0451.GitTroll.command.commands.player.GetIP;
 import net.Lenni0451.GitTroll.command.commands.player.Godmode;
 import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Kick;
@@ -177,6 +178,7 @@ public class CommandManager implements Listener {
 	public final FakeEnd FakeEnd = null;
 	public final InteractTroll InteractTroll = null;
 	public final JumpScare JumpScare = null;
+	public final GetIP GetIP = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
