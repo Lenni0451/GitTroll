@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.CraftSound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -118,6 +119,10 @@ public class CustomPlayer {
 
 	public Block getLooking() {
 		return this.player.getTargetBlock((Set<Material>) null, 10);
+	}
+
+	public World getWorld() {
+		return this.player.getWorld();
 	}
 	
 }
