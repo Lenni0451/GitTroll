@@ -30,7 +30,7 @@ public class TablistClearer extends CommandBase {
 				playerList.add(((CraftPlayer) player).getHandle());
 			}
 			vic.sendPacket(new PacketPlayOutPlayerInfo(EnumPlayerInfoAction.REMOVE_PLAYER, playerList));
-			vic.sendGitMessage("The tablist of the player has been cleared.");
+			executor.sendGitMessage("The tablist of the player has been cleared.");
 		} else {
 			this.commandWrong();
 		}
