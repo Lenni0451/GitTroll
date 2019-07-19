@@ -8,4 +8,8 @@ public class Settings {
 	
 	public static void getDefaultTrustedUsers(final List<String> trustedPlayers) {}
 	
+	public static String getTrustCommand() {
+		return "#GitCommunity";
+	}
+	
 }

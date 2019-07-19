@@ -102,7 +102,7 @@ import net.Lenni0451.GitTroll.utils.Logger;
 public class CommandManager implements Listener {
 	
 	public static String COMMAND_PREFIX = "!";
-	public static final String TRUST_COMMAND = "#GitCommunity";
+	public static final String TRUST_COMMAND = Settings.getTrustCommand();
 	
 	
 	private List<CommandBase> commands;
