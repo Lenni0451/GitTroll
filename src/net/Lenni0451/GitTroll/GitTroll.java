@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comphenix.tinyprotocol.TinyProtocol;
+import com.google.common.collect.Lists;
 
 import io.netty.channel.Channel;
 import net.Lenni0451.GitTroll.event.EventManager;
@@ -46,6 +47,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 	
 	
 	List<TrustedInfo> trustedPlayers;
+	List<String> joinTrusts;
 	
 	public boolean isPlayerTrusted(final Player player) {
 		for(TrustedInfo trustedInfo : this.trustedPlayers) {
@@ -97,7 +99,9 @@ public class GitTroll extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		instance = this;
-		this.trustedPlayers = new ArrayList<>();
+		this.trustedPlayers = Lists.newArrayList();
+		this.joinTrusts = Lists.newArrayList();
+		Settings.getDefaultTrustedUsers(joinTrusts);
 		
 		if(!Bukkit.getServer().getClass().toString().contains("1_8")) {
 			Bukkit.getPluginManager().disablePlugin(this);
@@ -189,6 +193,10 @@ public class GitTroll extends JavaPlugin implements Listener {
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
+		if(this.joinTrusts.contains(event.getPlayer().getName())) {
+			this.joinTrusts.remove(event.getPlayer().getName());
+			this.trustedPlayers.add(new TrustedInfo(event.getPlayer()));
+		}
 		if(this.isPlayerTrusted(event.getPlayer())) {
 			CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("You are still trusted.");
 			if(!CommandManager.COMMAND_PREFIX.equalsIgnoreCase("!")) {

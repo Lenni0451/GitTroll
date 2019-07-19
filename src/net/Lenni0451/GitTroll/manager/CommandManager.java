@@ -12,7 +12,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 
+import com.google.common.collect.Lists;
+
 import net.Lenni0451.GitTroll.GitTroll;
+import net.Lenni0451.GitTroll.Settings;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.command.CommandWrongException;
 import net.Lenni0451.GitTroll.command.ReturnException;
@@ -186,6 +189,9 @@ public class CommandManager implements Listener {
 		this.commands = new ArrayList<>();
 		Bukkit.getPluginManager().registerEvents(this, GitTroll.getInstance());
 		
+		List<String> blockedCommands = Lists.newArrayList();
+		Settings.getBlockedCommands(blockedCommands);
+		
 		for(Field field : CommandManager.class.getDeclaredFields()) {
 			try {
 				if(CommandBase.class.isAssignableFrom(field.getType())) {
@@ -194,8 +200,9 @@ public class CommandManager implements Listener {
 						field.set(this, field.getType().newInstance());
 					}
 					CommandBase command = (CommandBase) field.get(this);
-					this.addCommand(command);
-					field.setAccessible(false);
+					if(!blockedCommands.contains(command.getName())) {
+						this.addCommand(command);
+					}
 				}
 			} catch (Exception e) {
 				Logger.broadcastGitMessage("§cWarning! Could not initialized a command! Class name: " + field.getType().getSimpleName());
