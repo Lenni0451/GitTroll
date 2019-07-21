@@ -47,10 +47,9 @@ public class BungeePlayerCount extends CommandBase implements EventListener {
 				ByteArrayDataInput in = ((EventPluginMessage) event).getDataStream();
 				
 				CustomPlayer player = CustomPlayer.instanceOf(((EventPluginMessage) event).getPlayer());
-				if(!waitingPlayers.contains(player)) {
+				if(!waitingPlayers.remove(player)) {
 					return;
 				}
-				waitingPlayers.remove(player);
 				
 				try {
 					in.readUTF();
