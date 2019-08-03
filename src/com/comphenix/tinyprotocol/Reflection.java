@@ -143,7 +143,6 @@ public final class Reflection {
 				return new FieldAccessor<T>() {
 
 					@Override
-					@SuppressWarnings("unchecked")
 					public T get(Object target) {
 						try {
 							return (T) field.get(target);
@@ -296,7 +295,7 @@ public final class Reflection {
 	 * @return The class.
 	 */
 	public static Class<Object> getUntypedClass(String lookupName) {
-		@SuppressWarnings({ "rawtypes", "unchecked" })
+		@SuppressWarnings({ "rawtypes"})
 		Class<Object> clazz = (Class) getClass(lookupName);
 		return clazz;
 	}
