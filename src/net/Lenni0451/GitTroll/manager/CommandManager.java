@@ -49,6 +49,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Unban;
 import net.Lenni0451.GitTroll.command.commands.player.UnhookPacketListener;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
+import net.Lenni0451.GitTroll.command.commands.plugin.About;
 import net.Lenni0451.GitTroll.command.commands.plugin.ChangeCommandPrefix;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
@@ -110,6 +111,7 @@ public class CommandManager implements Listener {
 	
 	//Register commands here
 //	public final TestCommand TestCommand = null;
+	public final About About = null;
 	public final Vanish Vanish = null;
 	public final Untrust Untrust = null;
 	public final ResourceExploit ResourceExploit = null;

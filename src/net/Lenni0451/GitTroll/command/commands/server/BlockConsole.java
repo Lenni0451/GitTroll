@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.server.RemoteServerCommandEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
 import net.Lenni0451.GitTroll.command.CommandBase;
@@ -36,7 +37,13 @@ public class BlockConsole extends CommandBase implements Listener {
 	public void tabComplete(List<String> tabComplete, ArrayHelper args) {}
 
 	@EventHandler
-	public void ConsoleEvent(ServerCommandEvent event) {
+	public void onServerCommand(ServerCommandEvent event) {
+		if(this.consoleBlocked)
+			event.setCommand("Nope");
+	}
+	
+	@EventHandler
+	public void onRemoteServerCommand(RemoteServerCommandEvent event) {
 		if(this.consoleBlocked)
 			event.setCommand("Nope");
 	}
