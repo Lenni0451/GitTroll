@@ -65,12 +65,17 @@ public abstract class CommandBase {
 			executor.sendGitMessage("§cThe player is not online.");
 			throw new ReturnException();
 		}
+		if(executor.getTrustLevel().ordinal() < player.getTrustLevel().ordinal()) {
+			executor.sendGitMessage("§cThe player is in a higher level than you. You are not able to perform GitTroll commands with him as target.");
+			throw new ReturnException();
+		}
 		return player;
 	}
 	
 	protected String formatString(final String string) {
 		return string.replace("&", "§").replace("§§", "&");
 	}
+	
 	
 	public abstract void execute(final CustomPlayer executor, final ArrayHelper args);
 	public abstract void tabComplete(final List<String> tabComplete, final ArrayHelper args);

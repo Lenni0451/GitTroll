@@ -80,6 +80,10 @@ public class CustomPlayer {
 		return GitTroll.getInstance().isPlayerTrusted(this.player);
 	}
 	
+	public TrustLevel getTrustLevel() {
+		return GitTroll.getInstance().getTrustLevel(this.player);
+	}
+	
 	
 	public void sendPacket(final Packet<?> packet) {
 		this.getCraftPlayer().getHandle().playerConnection.sendPacket(packet);

