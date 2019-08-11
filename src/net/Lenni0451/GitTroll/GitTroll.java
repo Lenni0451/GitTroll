@@ -17,7 +17,6 @@ import com.comphenix.tinyprotocol.TinyProtocol;
 import com.google.common.collect.Lists;
 
 import io.netty.channel.Channel;
-import net.Lenni0451.GitTroll.event.EventManager;
 import net.Lenni0451.GitTroll.event.events.EventPlayerPacket;
 import net.Lenni0451.GitTroll.event.events.EventPluginMessage;
 import net.Lenni0451.GitTroll.event.events.EventServerPacket;
@@ -26,6 +25,7 @@ import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
 import net.Lenni0451.GitTroll.event.events.PluginDisableEvent;
 import net.Lenni0451.GitTroll.event.events.ServerLoadedEvent;
 import net.Lenni0451.GitTroll.manager.CommandManager;
+import net.Lenni0451.GitTroll.manager.EventManager;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;

@@ -1,10 +1,11 @@
-package net.Lenni0451.GitTroll.event;
+package net.Lenni0451.GitTroll.manager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.event.types.Event;
 import net.Lenni0451.GitTroll.utils.Logger;
 
