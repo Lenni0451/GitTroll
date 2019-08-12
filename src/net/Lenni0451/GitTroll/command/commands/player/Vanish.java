@@ -214,6 +214,9 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 	
 	@EventHandler
 	public void onCommand(PlayerCommandPreprocessEvent event) {
+		if(CustomPlayer.instanceOf(event.getPlayer()).isTrusted()) {
+			return;
+		}
 		String command = event.getMessage();
 		if(command.startsWith("/")) command = command.substring(1);
 		if(command.split(":").length == 2) command = command.split(":")[1];
