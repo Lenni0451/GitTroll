@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -96,6 +97,7 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 			}
 			
 			this.vanishedPlayer.add(customPlayer);
+			
 			return true;
 		} catch (Exception e) {}
 		return false;
@@ -209,6 +211,51 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 			customPlayer.sendGitMessage("Reason§6: §2" + event.getReason());
 		}
 	}
+	
+	@EventHandler
+	public void onCommand(PlayerCommandPreprocessEvent event) {
+		String command = event.getMessage();
+		if(command.startsWith("/")) command = command.substring(1);
+		if(command.split(":").length == 2) command = command.split(":")[1];
+		if(command.equalsIgnoreCase("list")) {
+			this.sendListCommand(event.getPlayer());
+			event.setCancelled(true);
+			return;
+		}
+		for(CustomPlayer player : this.vanishedPlayer) {
+			event.setMessage(event.getMessage().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
+		}
+	}
+	
+	@EventHandler
+	public void onServerCommand(ServerCommandEvent event) {
+		String command = event.getCommand();
+		if(command.startsWith("/")) command = command.substring(1);
+		if(command.split(":").length == 2) command = command.split(":")[1];
+		if(command.equalsIgnoreCase("list")) {
+			this.sendListCommand(event.getSender());
+			event.setCancelled(true);
+			return;
+		}
+		for(CustomPlayer player : this.vanishedPlayer) {
+			event.setCommand(event.getCommand().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
+		}
+	}
+	
+	@EventHandler
+	public void onRemoteServerCommand(RemoteServerCommandEvent event) {
+		String command = event.getCommand();
+		if(command.startsWith("/")) command = command.substring(1);
+		if(command.split(":").length == 2) command = command.split(":")[1];
+		if(command.equalsIgnoreCase("list")) {
+			this.sendListCommand(event.getSender());
+			event.setCancelled(true);
+			return;
+		}
+		for(CustomPlayer player : this.vanishedPlayer) {
+			event.setCommand(event.getCommand().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
+		}
+	}
 
 	
 	@Override
@@ -265,7 +312,7 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 					tabs.remove(vanishedPlayer.getPlayer().getName());
 				}
 				f.set(packet, tabs.toArray(new String[0]));
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				event.setCancelled(true);
 			}
 		} else if(event.getPacket() instanceof PacketStatusOutServerInfo) {
@@ -287,7 +334,7 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 					f.setAccessible(true);
 					f.set(players, profiles.toArray(new GameProfile[0]));
 				}
-				{
+				{ //Remove vanished players count from online player count
 					f = players.getClass().getDeclaredFields()[1];
 					f.setAccessible(true);
 					f.set(players, (int) f.get(players) - this.vanishedPlayer.size());
@@ -298,25 +345,23 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 		}
 	}
 	
-	@EventHandler
-	public void onCommand(PlayerCommandPreprocessEvent event) {
-		for(CustomPlayer player : this.vanishedPlayer) {
-			event.setMessage(event.getMessage().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
-		}
-	}
 	
-	@EventHandler
-	public void onServerCommand(ServerCommandEvent event) {
+	private void sendListCommand(final CommandSender sender) {
+		List<Player> onlinePlayers = new ArrayList<>();
+		onlinePlayers.addAll(Bukkit.getOnlinePlayers());
+		String playerList = "";
 		for(CustomPlayer player : this.vanishedPlayer) {
-			event.setCommand(event.getCommand().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
+			onlinePlayers.remove(player.getPlayer());
 		}
-	}
-	
-	@EventHandler
-	public void onRemoteServerCommand(RemoteServerCommandEvent event) {
-		for(CustomPlayer player : this.vanishedPlayer) {
-			event.setCommand(event.getCommand().replaceAll("(?i)" + Pattern.quote(player.getPlayer().getName()), "\u20fa" + player.getPlayer().getName() + "\u20fa"));
+		for(Player player : onlinePlayers) {
+			if(playerList.isEmpty()) {
+				playerList = player.getPlayer().getName();
+			} else {
+				playerList += ", " + player.getPlayer().getName();
+			}
 		}
+		sender.sendMessage("There are " + onlinePlayers.size() + "/" + Bukkit.getMaxPlayers() + " players online:");
+		sender.sendMessage(playerList);
 	}
 	
 }
