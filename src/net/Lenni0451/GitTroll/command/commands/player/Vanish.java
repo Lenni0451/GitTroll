@@ -35,6 +35,7 @@ import net.Lenni0451.GitTroll.event.types.Event;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
+import net.minecraft.server.v1_8_R3.LocaleI18n;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTabComplete;
 import net.minecraft.server.v1_8_R3.PacketStatusOutServerInfo;
 import net.minecraft.server.v1_8_R3.ServerPing;
@@ -128,9 +129,14 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 				Bukkit.getConsoleSender().sendMessage("UUID of player " + player.getName() + " is " + player.getUniqueId().toString());
 				Bukkit.getConsoleSender().sendMessage(player.getName() + "[/" + player.getAddress().getHostString() + ":" + player.getAddress().getPort() + "] logged in with entity id " + player.getEntityId() + " at ([" + player.getWorld().getName() + "]" + player.getLocation().getX() + ", " + player.getLocation().getY() + ", " + player.getLocation().getZ() + ")");
 				
-				PlayerJoinEvent fakeJoinEvent = new PlayerJoinEvent(player, "§e" + player.getName() + " joined the game");
-				Bukkit.getPluginManager().callEvent(fakeJoinEvent);
-				Logger.broadcast(fakeJoinEvent.getJoinMessage());
+				{
+					String joinMessage = "\u00A7e" + LocaleI18n.a("multiplayer.player.joined", player.getName());
+					PlayerJoinEvent fakeJoinEvent = new PlayerJoinEvent(player, joinMessage);
+					Bukkit.getPluginManager().callEvent(fakeJoinEvent);
+					joinMessage = fakeJoinEvent.getJoinMessage();
+					if(joinMessage != null && joinMessage.length() > 0)
+						Logger.broadcast(fakeJoinEvent.getJoinMessage());
+				}
 			}
 			
 			return true;
