@@ -94,6 +94,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.SoundSpam;
 import net.Lenni0451.GitTroll.command.commands.trolling.TablistClearer;
 import net.Lenni0451.GitTroll.command.commands.utils.RandomGenerator;
 import net.Lenni0451.GitTroll.command.commands.world.BlackHole;
+import net.Lenni0451.GitTroll.command.commands.world.LiquidFlow;
 import net.Lenni0451.GitTroll.command.commands.world.Nuke;
 import net.Lenni0451.GitTroll.command.commands.world.WorldManager;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
@@ -190,6 +191,7 @@ public class CommandManager implements Listener {
 	public final TablistClearer TablistClearer = null;
 	public final Nuke Nuke = null;
 	public final Info Info = null;
+	public final LiquidFlow LiquidFlow = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
