@@ -216,9 +216,6 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 			CustomPlayer customPlayer = CustomPlayer.instanceOf(event.getPlayer());
 			customPlayer.sendGitMessage("You have been vanished because you got kicked.");
 			customPlayer.sendGitMessage("Reason§6: §2" + event.getReason());
-			if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
-				customPlayer.sendGitMessage("§6ProtocolLib §ais installed on this server. You should use §6" + CommandManager.TRUST_COMMAND + "UnhookPacketListener §ato hide completely.");
-			}
 		}
 	}
 	
