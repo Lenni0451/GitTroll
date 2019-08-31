@@ -32,7 +32,6 @@ import net.Lenni0451.GitTroll.event.events.EventTrustPlayer;
 import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
 import net.Lenni0451.GitTroll.event.events.PluginDisableEvent;
 import net.Lenni0451.GitTroll.event.types.Event;
-import net.Lenni0451.GitTroll.manager.CommandManager;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
