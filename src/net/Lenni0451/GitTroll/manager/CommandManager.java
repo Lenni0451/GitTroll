@@ -98,6 +98,7 @@ import net.Lenni0451.GitTroll.command.commands.world.LiquidFlow;
 import net.Lenni0451.GitTroll.command.commands.world.Nuke;
 import net.Lenni0451.GitTroll.command.commands.world.WorldManager;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
+import net.Lenni0451.GitTroll.command.commands.player.Invsee;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
@@ -192,6 +193,7 @@ public class CommandManager implements Listener {
 	public final Nuke Nuke = null;
 	public final Info Info = null;
 	public final LiquidFlow LiquidFlow = null;
+	public final Invsee Invsee = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
