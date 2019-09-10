@@ -25,14 +25,8 @@ public class Invsee extends CommandBase {
 			this.commandWrong();
 		}
 	}
-                
-	
 
 	@Override
-	public void tabComplete(List<String> tabComplete, ArrayHelper args) {
-		
-	}
-
-	
+	public void tabComplete(List<String> tabComplete, ArrayHelper args) {}
 	
 }
