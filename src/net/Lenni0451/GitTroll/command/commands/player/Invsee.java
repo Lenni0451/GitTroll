@@ -23,6 +23,10 @@ public class Invsee extends CommandBase {
 	}
 
 	@Override
-	public void tabComplete(List<String> tabComplete, ArrayHelper args) {}
+	public void tabComplete(List<String> tabComplete, ArrayHelper args) {
+		if(args.isEmpty()) {
+			this.tabCompletePlayers(tabComplete);
+		}
+	}
 	
 }
