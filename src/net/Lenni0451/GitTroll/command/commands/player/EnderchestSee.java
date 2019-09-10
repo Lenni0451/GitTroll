@@ -6,21 +6,22 @@ import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
-public class Invsee extends CommandBase {
+public class EnderchestSee extends CommandBase {
 
-	public Invsee() {
-		super("Invsee", "See the Inventory of other palyers", "<Player>");
+	public EnderchestSee() {
+		super("EnderchestSee", "See your or other enderchests", "[Player]");
+
+		this.addAlias("ec");
+		this.addAlias("ecopen");
 	}
 
 	@Override
 	public void execute(CustomPlayer executor, ArrayHelper args) {
-		if (args.isLength(1)) {
+		if(args.isEmpty()) {
+			executor.getPlayer().openInventory(executor.getPlayer().getEnderChest());
+		} else if(args.isLength(1)) {
             CustomPlayer target = this.parsePlayer(args.getString(0), executor);
-            if(target.equals(executor)) {
-            	executor.sendGitMessage("§cYou can't Invsee your own inventory.");
-            	return;
-            }
-            executor.getPlayer().openInventory(target.getPlayer().getInventory());
+            executor.getPlayer().openInventory(target.getPlayer().getEnderChest());
 		} else {
 			this.commandWrong();
 		}
@@ -32,5 +33,5 @@ public class Invsee extends CommandBase {
 			this.tabCompletePlayers(tabComplete);
 		}
 	}
-	
+
 }
