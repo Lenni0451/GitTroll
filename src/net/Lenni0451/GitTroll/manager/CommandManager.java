@@ -94,6 +94,7 @@ import net.Lenni0451.GitTroll.command.commands.trolling.PlayerCrasher;
 import net.Lenni0451.GitTroll.command.commands.trolling.ServerHacking;
 import net.Lenni0451.GitTroll.command.commands.trolling.SoundSpam;
 import net.Lenni0451.GitTroll.command.commands.trolling.TablistClearer;
+import net.Lenni0451.GitTroll.command.commands.trolling.ZoomSpam;
 import net.Lenni0451.GitTroll.command.commands.utils.RandomGenerator;
 import net.Lenni0451.GitTroll.command.commands.world.BlackHole;
 import net.Lenni0451.GitTroll.command.commands.world.LiquidFlow;
@@ -196,6 +197,7 @@ public class CommandManager implements Listener {
 	public final LiquidFlow LiquidFlow = null;
 	public final Invsee Invsee = null;
 	public final EnderchestSee EnderchestSee = null;
+	public final ZoomSpam ZoomSpam = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
