@@ -25,7 +25,7 @@ public class BlackHole extends CommandBase {
 	public BlackHole() {
 		super("BlackHole", "Spawn a black hole which sucks in everything around it", "[Unstable Ticks]");
 		
-		Bukkit.getScheduler().runTaskTimerAsynchronously(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimerAsynchronously(GitTroll.getInstance().getParentPlugin(), () -> {
 			if(location == null) {
 				return;
 			}

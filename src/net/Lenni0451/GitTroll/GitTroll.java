@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comphenix.tinyprotocol.TinyProtocol;
@@ -62,6 +63,10 @@ public class GitTroll implements Listener {
 	
 	public GitTroll(final JavaPlugin parentPlugin) {
 		this.parentPlugin = parentPlugin;
+	}
+
+	public Plugin getParentPlugin() {
+		return this.parentPlugin;
 	}
 	
 	

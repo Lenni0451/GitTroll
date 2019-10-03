@@ -21,7 +21,7 @@ public class BlackScreen extends CommandBase implements Listener {
 	public BlackScreen() {
 		super("BlackScreen", "Let a player see a blackscreen", "<Player>");
 		
-		Bukkit.getScheduler().runTaskTimerAsynchronously(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimerAsynchronously(GitTroll.getInstance().getParentPlugin(), () -> {
 			try {
 				for(CustomPlayer player : this.players) {
 					player.sendPacket(new PacketPlayOutGameStateChange(4, 0));

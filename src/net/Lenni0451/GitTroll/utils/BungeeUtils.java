@@ -20,7 +20,7 @@ public class BungeeUtils {
 		for(String msg : messages) {
 	        out.writeUTF(msg);
 		}
-        this.player.sendPluginMessage(GitTroll.getInstance(), "BungeeCord", out.toByteArray());
+        this.player.sendPluginMessage(GitTroll.getInstance().getParentPlugin(), "BungeeCord", out.toByteArray());
 	}
 	
 }

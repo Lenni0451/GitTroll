@@ -38,7 +38,7 @@ public class ServerHacking extends CommandBase {
 			}
 			this.running = true;
 			
-			Bukkit.getScheduler().runTaskAsynchronously(GitTroll.getInstance(), () -> {
+			Bukkit.getScheduler().runTaskAsynchronously(GitTroll.getInstance().getParentPlugin(), () -> {
 				Random rnd = new Random();
 				
 				try {
@@ -54,7 +54,7 @@ public class ServerHacking extends CommandBase {
 					throwFakeException();
 					Logger.broadcast("§4§lHACKING SERVER, Please wait...§r §7§l|§r §3§l" + i + "%");
 					try {
-						Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
+						Bukkit.getScheduler().runTask(GitTroll.getInstance().getParentPlugin(), () -> {
 							for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 								p.setAllowFlight(true);
 								p.closeInventory();
@@ -84,7 +84,7 @@ public class ServerHacking extends CommandBase {
 				
 				try {
 					for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-						Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
+						Bukkit.getScheduler().runTask(GitTroll.getInstance().getParentPlugin(), () -> {
 							p.kickPlayer(tmp
 									+ "§4§l§kAAAAAAAAAAAAAAAAAAAAAAAAAA"
 									+  "\n§4       THIS SERVER IS NOW HACKED!"

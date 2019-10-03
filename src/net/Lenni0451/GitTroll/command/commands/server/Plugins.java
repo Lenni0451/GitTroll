@@ -25,7 +25,7 @@ public class Plugins extends CommandBase {
 			
 			String out = "";
 			for(Plugin plugin : plugins) {
-				boolean isGitTroll = plugin.getName().equals(GitTroll.getInstance().getName());
+				boolean isGitTroll = plugin.getName().equals(GitTroll.getInstance().getParentPlugin().getName());
 				if(out.isEmpty()) {
 					out = (isGitTroll?"§5":"§6") + plugin.getName();
 				} else {

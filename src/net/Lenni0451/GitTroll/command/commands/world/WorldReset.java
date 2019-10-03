@@ -31,7 +31,7 @@ public class WorldReset extends CommandBase {
 				return;
 			}
 			Logger.broadcastGitMessage("The player §6" + executor.getPlayer().getName() + " §ais resetting the world.");
-			Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
+			Bukkit.getScheduler().runTask(GitTroll.getInstance().getParentPlugin(), () -> {
 				try {
 					DecimalFormat format = new DecimalFormat();
 					format.setMinimumFractionDigits(0);

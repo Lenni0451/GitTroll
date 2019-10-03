@@ -201,7 +201,7 @@ public class CommandManager implements Listener {
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
-		Bukkit.getPluginManager().registerEvents(this, GitTroll.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, GitTroll.getInstance().getParentPlugin());
 		
 		List<String> blockedCommands = Lists.newArrayList();
 		Settings.getBlockedCommands(blockedCommands);
@@ -227,7 +227,7 @@ public class CommandManager implements Listener {
 	private void addCommand(final CommandBase command) {
 		this.commands.add(command);
 		if(command instanceof Listener) {
-			Bukkit.getPluginManager().registerEvents((Listener) command, GitTroll.getInstance());
+			Bukkit.getPluginManager().registerEvents((Listener) command, GitTroll.getInstance().getParentPlugin());
 		}
 		if(command instanceof EventListener) {
 			GitTroll.getInstance().eventManager.registerAllEvents((EventListener) command);
@@ -257,7 +257,7 @@ public class CommandManager implements Listener {
 		
 		for(CommandBase commandBase : this.commands) {
 			if(commandBase.getName().equalsIgnoreCase(commandLabel) || commandBase.getAliases().contains(commandLabel.toLowerCase())) {
-				Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
+				Bukkit.getScheduler().runTask(GitTroll.getInstance().getParentPlugin(), () -> {
 					try {
 						commandBase.execute(cPlayer, new ArrayHelper(args));
 					} catch (ReturnException e) {

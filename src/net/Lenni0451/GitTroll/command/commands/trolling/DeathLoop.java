@@ -17,7 +17,7 @@ public class DeathLoop extends CommandBase {
 	public DeathLoop() {
 		super("DeathLoop", "Kill a player in an infinite loop", "<Player>");
 		
-		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance().getParentPlugin(), () -> {
 			try {
 				for(CustomPlayer player : players) {
 					player.kill();

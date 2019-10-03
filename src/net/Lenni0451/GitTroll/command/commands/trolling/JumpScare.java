@@ -67,7 +67,7 @@ public class JumpScare extends CommandBase {
 				ItemStack stack = ItemStackUtils.generateNew(Material.GOLD_SWORD);
 				armorStand.setItemInHand(stack);
 			}
-			BukkitTask task = Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
+			BukkitTask task = Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance().getParentPlugin(), () -> {
 				double divider = 10;
 				
 				double posX = (armorStand.getLocation().getX() - vic.getLocation().getX()) / divider;
@@ -80,7 +80,7 @@ public class JumpScare extends CommandBase {
 				
 				armorStand.getWorld().playSound(vic.getLocation(), Sound.GHAST_SCREAM, 1, 1);
 			}, 0, 1);
-			Bukkit.getScheduler().runTaskLater(GitTroll.getInstance(), () -> {
+			Bukkit.getScheduler().runTaskLater(GitTroll.getInstance().getParentPlugin(), () -> {
 				task.cancel();
 				armorStand.remove();
 			}, 10);

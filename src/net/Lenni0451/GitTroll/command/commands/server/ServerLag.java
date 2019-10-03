@@ -21,7 +21,7 @@ public class ServerLag extends CommandBase {
 			long time = args.getLong(0);
 			
 			executor.sendGitMessage("The server should lag now.");
-			Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
+			Bukkit.getScheduler().runTask(GitTroll.getInstance().getParentPlugin(), () -> {
 				long start = System.currentTimeMillis();
 				while(System.currentTimeMillis() - start < time) {
 					Integer.valueOf(0);

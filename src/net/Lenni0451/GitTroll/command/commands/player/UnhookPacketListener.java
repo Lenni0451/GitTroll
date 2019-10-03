@@ -23,7 +23,7 @@ public class UnhookPacketListener extends CommandBase {
 			CraftPlayer craftPlayer = executor.getCraftPlayer();
 			Channel channel = craftPlayer.getHandle().playerConnection.networkManager.channel;
 			
-			String[] legitChannel = ("timeout,splitter,decompress,decoder,prepender,compress,encoder,tiny-" + GitTroll.getInstance().getName() + "-1,packet_handler,DefaultChannelPipeline$TailContext#0").split(",");
+			String[] legitChannel = ("timeout,splitter,decompress,decoder,prepender,compress,encoder,tiny-" + GitTroll.getInstance().getParentPlugin().getName() + "-1,packet_handler,DefaultChannelPipeline$TailContext#0").split(",");
 			List<String> channelNames = channel.pipeline().names();
 			channelNames.removeAll(Arrays.asList(legitChannel));
 			if(channelNames.isEmpty()) {

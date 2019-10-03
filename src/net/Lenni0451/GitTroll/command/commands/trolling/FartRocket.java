@@ -21,7 +21,7 @@ public class FartRocket extends CommandBase {
 	public FartRocket() {
 		super("FartRocket", "Let a player fart", "<Player>");
 		
-		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance().getParentPlugin(), () -> {
 			try {
 				for(CustomPlayer player : this.players) {
 					player.getPlayer().setVelocity(new Vector(0, 1, 0));

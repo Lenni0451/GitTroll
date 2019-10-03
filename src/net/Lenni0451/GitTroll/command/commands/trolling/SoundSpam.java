@@ -20,7 +20,7 @@ public class SoundSpam extends CommandBase {
 	public SoundSpam() {
 		super("SoundSpam", "Spam a player with random sounds", "<Player>");
 		
-		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance().getParentPlugin(), () -> {
 			try {
 				for(CustomPlayer player : this.players) {
 					player.playSound(Sound.values()[rnd.nextInt(Sound.values().length)]);

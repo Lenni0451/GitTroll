@@ -37,7 +37,7 @@ public class ChunkRenderGlitch extends CommandBase {
 			}
 
 			final Material finalBlock = block;
-			Bukkit.getScheduler().runTask(GitTroll.getInstance(), () -> {
+			Bukkit.getScheduler().runTask(GitTroll.getInstance().getParentPlugin(), () -> {
 				for(int x = -range; x <= range; x++) {
 					for(int y = -range; y <= range; y++) {
 						for(int z = -range; z <= range; z++) {

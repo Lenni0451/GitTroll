@@ -21,7 +21,7 @@ public class FakeHacker extends CommandBase {
 	public FakeHacker() {
 		super("FakeHacker", "Let all entities in the world have hacks (for a player)", "<Player>");
 		
-		Bukkit.getScheduler().runTaskTimerAsynchronously(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimerAsynchronously(GitTroll.getInstance().getParentPlugin(), () -> {
 			try {
 				Random rnd = new Random();
 				

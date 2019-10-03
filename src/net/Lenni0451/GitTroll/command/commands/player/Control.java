@@ -36,7 +36,7 @@ public class Control extends CommandBase implements Listener, EventListener {
 	public Control() {
 		super("Control", "Control a player", "<Player>");
 		
-		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance().getParentPlugin(), () -> {
 			try {
 				for(Map.Entry<CustomPlayer, CustomPlayer> entry : this.controlledPlayers.entrySet()) {
 					Player controller = entry.getKey().getPlayer();

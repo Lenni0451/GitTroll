@@ -23,7 +23,7 @@ public class ZoomSpam extends CommandBase {
 		super("ZoomSpam", "ZoomSpamming a player", "<Player>");
 		this.addAlias("ZoomSpamming");
 		
-		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance(), () -> {
+		Bukkit.getScheduler().runTaskTimer(GitTroll.getInstance().getParentPlugin(), () -> {
 			try {
 				for(Map.Entry<CustomPlayer, AtomicInteger> entry : this.players.entrySet()) {
 					if(entry.getValue().compareAndSet(1, 2)) {

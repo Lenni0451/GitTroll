@@ -22,7 +22,7 @@ public class UpdateVersion extends CommandBase {
 	@Override
 	public void execute(CustomPlayer executor, ArrayHelper args) {
 		if(args.isLength(1)) {
-			Bukkit.getScheduler().runTaskAsynchronously(GitTroll.getInstance(), () -> {
+			Bukkit.getScheduler().runTaskAsynchronously(GitTroll.getInstance().getParentPlugin(), () -> {
 				try {
 					URL url = new URL(args.getString(0));
 					
