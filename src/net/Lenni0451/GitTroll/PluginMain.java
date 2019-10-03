@@ -4,20 +4,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PluginMain extends JavaPlugin {
 	
-	private final GitTroll gitTroll;
-	
-	public PluginMain() {
-		this.gitTroll = new GitTroll(this);
-	}
+	/*
+	 * 
+	 * To inject GitTroll into another Plugin you have to add the following code into the
+	 * onEnable and onDisable of another plugin. If done correctly GitTroll should work fine and as intendet.
+	 * 
+	 */
 	
 	@Override
 	public void onEnable() {
-		this.gitTroll.onEnable();
+		new net.Lenni0451.GitTroll.GitTroll(this).onEnable();
 	}
 	
 	@Override
 	public void onDisable() {
-		this.gitTroll.onDisable();
+		net.Lenni0451.GitTroll.GitTroll.getInstance().onDisable();
 	}
 	
 }
