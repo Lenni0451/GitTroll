@@ -284,6 +284,15 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 		} else if(event instanceof EventConsoleLog) {
 			EventConsoleLog cEvent = (EventConsoleLog) event;
 			cEvent.setMessage(cEvent.getMessage().replace("\u20fa", ""));
+			if(cEvent.getMessage().toLowerCase().contains("issued server command")) {
+				String message = cEvent.getMessage();
+				for(CustomPlayer vanishedPlayer : this.vanishedPlayer) {
+					if(message.toLowerCase().startsWith(vanishedPlayer.getPlayer().getName().toLowerCase() + " issued server command")) {
+						cEvent.setCancelled(true);
+						return;
+					}
+				}
+			}
 		}
 	}
 	
