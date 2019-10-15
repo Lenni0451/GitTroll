@@ -35,6 +35,7 @@ public class Client {
 		System.out.print("Enter the file name and path: ");
 		String out = s.nextLine();
 		Files.write(new File(out).toPath(), baos.toByteArray());
+		System.out.println("The file has been saved!");
 		
 		s.close();
 	}
