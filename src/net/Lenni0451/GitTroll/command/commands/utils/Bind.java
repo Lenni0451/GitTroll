@@ -1,4 +1,4 @@
-package net.Lenni0451.GitTroll.command.commands.plugin;
+package net.Lenni0451.GitTroll.command.commands.utils;
 
 import java.util.List;
 import java.util.Map;
