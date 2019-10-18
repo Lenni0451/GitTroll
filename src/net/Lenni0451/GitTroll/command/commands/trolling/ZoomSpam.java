@@ -43,7 +43,7 @@ public class ZoomSpam extends CommandBase {
 			CustomPlayer vic = this.parsePlayer(args.getString(0), executor);
 			
 			if(this.players.remove(vic) != null) {
-				executor.sendGitMessage("The Player is no longer zoom spammed.");
+				executor.sendGitMessage("§cThe Player is no longer zoom spammed.");
 			} else {
 				this.players.put(vic, new AtomicInteger());
 				executor.sendGitMessage("The Player is now zoom spammed.");
