@@ -53,6 +53,7 @@ import net.Lenni0451.GitTroll.command.commands.player.UnhookPacketListener;
 import net.Lenni0451.GitTroll.command.commands.player.Untrust;
 import net.Lenni0451.GitTroll.command.commands.player.Vanish;
 import net.Lenni0451.GitTroll.command.commands.plugin.About;
+import net.Lenni0451.GitTroll.command.commands.plugin.Bind;
 import net.Lenni0451.GitTroll.command.commands.plugin.ChangeCommandPrefix;
 import net.Lenni0451.GitTroll.command.commands.plugin.Help;
 import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
@@ -202,6 +203,7 @@ public class CommandManager implements Listener {
 	public final ZoomSpam ZoomSpam = null;
 	public final ConsoleSpammer ConsoleSpammer = null;
 	public final UnloadChunks UnloadChunks = null;
+	public final Bind Bind = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
