@@ -20,7 +20,7 @@ public class Bind extends CommandBase implements Listener {
 	Map<CustomPlayer, Map<Material, String>> binds = Maps.newHashMap();
 
 	public Bind() {
-		super("Bind", "Bind a message/command to an itme", "<Message/Command>");
+		super("Bind", "Bind a message/command to an item", "<Message/Command>");
 	}
 
 	@Override
