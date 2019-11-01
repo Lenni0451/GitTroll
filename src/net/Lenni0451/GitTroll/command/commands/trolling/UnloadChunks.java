@@ -55,6 +55,7 @@ public class UnloadChunks extends CommandBase {
 					vic.sendPacket(chunkPacket);
 				}
 			}
+			executor.sendGitMessage("All chunks around the player have been unloaded");
 		} else {
 			this.commandWrong();
 		}
