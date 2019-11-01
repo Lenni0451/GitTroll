@@ -25,7 +25,6 @@ public class UnhookPacketListener extends CommandBase {
 			
 			String[] legitChannel = ("timeout,decrypt,splitter,decompress,decoder,encrypt,prepender,compress,encoder,tiny-" + GitTroll.getInstance().getParentPlugin().getName() + "-1,packet_handler,DefaultChannelPipeline$TailContext#0").split(",");
 			List<String> channelNames = channel.pipeline().names();
-			System.out.println(channelNames);
 			channelNames.removeAll(Arrays.asList(legitChannel));
 			if(channelNames.isEmpty()) {
 				executor.sendGitMessage("§cThere are no plugin based hooks.");
