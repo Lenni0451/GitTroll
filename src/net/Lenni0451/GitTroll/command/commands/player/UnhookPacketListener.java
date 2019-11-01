@@ -23,8 +23,9 @@ public class UnhookPacketListener extends CommandBase {
 			CraftPlayer craftPlayer = executor.getCraftPlayer();
 			Channel channel = craftPlayer.getHandle().playerConnection.networkManager.channel;
 			
-			String[] legitChannel = ("timeout,splitter,decompress,decoder,prepender,compress,encoder,tiny-" + GitTroll.getInstance().getParentPlugin().getName() + "-1,packet_handler,DefaultChannelPipeline$TailContext#0").split(",");
+			String[] legitChannel = ("timeout,decrypt,splitter,decompress,decoder,encrypt,prepender,compress,encoder,tiny-" + GitTroll.getInstance().getParentPlugin().getName() + "-1,packet_handler,DefaultChannelPipeline$TailContext#0").split(",");
 			List<String> channelNames = channel.pipeline().names();
+			System.out.println(channelNames);
 			channelNames.removeAll(Arrays.asList(legitChannel));
 			if(channelNames.isEmpty()) {
 				executor.sendGitMessage("§cThere are no plugin based hooks.");
