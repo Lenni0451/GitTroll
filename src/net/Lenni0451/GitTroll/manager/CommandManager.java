@@ -100,6 +100,8 @@ import net.Lenni0451.GitTroll.command.commands.trolling.ZoomSpam;
 import net.Lenni0451.GitTroll.command.commands.utils.Bind;
 import net.Lenni0451.GitTroll.command.commands.utils.RandomGenerator;
 import net.Lenni0451.GitTroll.command.commands.world.BlackHole;
+import net.Lenni0451.GitTroll.command.commands.world.InfestBlocks;
+import net.Lenni0451.GitTroll.command.commands.world.InstantNether;
 import net.Lenni0451.GitTroll.command.commands.world.LiquidFlow;
 import net.Lenni0451.GitTroll.command.commands.world.Nuke;
 import net.Lenni0451.GitTroll.command.commands.world.WorldManager;
@@ -204,6 +206,8 @@ public class CommandManager implements Listener {
 	public final ConsoleSpammer ConsoleSpammer = null;
 	public final UnloadChunks UnloadChunks = null;
 	public final Bind Bind = null;
+	public final InfestBlocks InfestBlocks = null;
+	public final InstantNether InstantNether = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
