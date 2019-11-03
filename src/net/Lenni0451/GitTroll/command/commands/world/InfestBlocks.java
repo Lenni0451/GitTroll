@@ -30,14 +30,16 @@ public class InfestBlocks extends CommandBase implements Listener {
 				for(int x = -range; x <= range; x++) {
 					for(int i = 0; i < 2; i++) {
 						Location loc = this.infestLocation.clone().add(x, 0, (i == 0 ? range : -range));
-						loc = LocationUtils.getHighestPoint(loc);
+						loc = LocationUtils.getHighestBlockInWorld(loc);
+						if(loc == null) continue;
 						loc.getBlock().setType(this.infestMaterial);
 					}
 				}
 				for(int z = -range; z <= range; z++) {
 					for(int i = 0; i < 2; i++) {
 						Location loc = this.infestLocation.clone().add((i == 0 ? range : -range), 0, z);
-						loc = LocationUtils.getHighestPoint(loc);
+						loc = LocationUtils.getHighestBlockInWorld(loc);
+						if(loc == null) continue;
 						loc.getBlock().setType(this.infestMaterial);
 					}
 				}
