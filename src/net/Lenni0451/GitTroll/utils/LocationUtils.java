@@ -29,6 +29,16 @@ public class LocationUtils {
 		return null;
 	}
 	
+	public static Location getHighestBlockInWorld(final Location location) {
+		Location newLoc = location.clone();
+		newLoc.setY(255);
+		while(newLoc.getBlockY() >= 0) {
+			if(!newLoc.getBlock().getType().equals(Material.AIR)) return newLoc;
+			newLoc.subtract(0, 1, 0);
+		}
+		return null;
+	}
+	
 	public static String serialize(final Location location) {
 		return location.getWorld().getName() + " " + decimalFormat.format(location.getX()).replace(",", ".") + " " + decimalFormat.format(location.getY()).replace(",", ".") + " " + decimalFormat.format(location.getZ()).replace(",", ".");
 	}
