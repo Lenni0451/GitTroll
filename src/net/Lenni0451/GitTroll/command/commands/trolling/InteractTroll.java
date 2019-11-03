@@ -64,7 +64,15 @@ public class InteractTroll extends CommandBase implements Listener {
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		CustomPlayer player = CustomPlayer.instanceOf(event.getPlayer());
-		if(player.isTrusted() || (!event.getAction().equals(Action.LEFT_CLICK_BLOCK) && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+		if(player.isTrusted()) {
+			if(event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+				player.sendGitMessage("You destroyed an InteractTroll block.");
+			} else {
+				player.sendGitMessage("You just interacted with a InteractTroll block.");
+			}
+			return;
+		}
+		if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK) && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			return;
 		}
 		
