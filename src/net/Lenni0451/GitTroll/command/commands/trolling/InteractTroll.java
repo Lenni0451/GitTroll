@@ -63,7 +63,7 @@ public class InteractTroll extends CommandBase implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		if(this.trollBlocks.containsKey(event.getClickedBlock().getLocation().toString())) return;
+		if(!this.trollBlocks.containsKey(event.getClickedBlock().getLocation().toString())) return;
 		CustomPlayer player = CustomPlayer.instanceOf(event.getPlayer());
 		if(player.isTrusted()) {
 			if(event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
