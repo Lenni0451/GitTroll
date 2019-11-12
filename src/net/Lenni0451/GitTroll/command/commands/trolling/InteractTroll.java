@@ -63,58 +63,60 @@ public class InteractTroll extends CommandBase implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		if(!this.trollBlocks.containsKey(event.getClickedBlock().getLocation().toString())) return;
-		CustomPlayer player = CustomPlayer.instanceOf(event.getPlayer());
-		if(player.isTrusted()) {
-			if(event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
-				player.sendGitMessage("You destroyed an InteractTroll block.");
-			} else {
-				player.sendGitMessage("You just interacted with a InteractTroll block.");
-			}
-			return;
-		}
-		if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK) && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-			return;
-		}
-		
-		Location loc = event.getClickedBlock().getLocation();
-		String location = loc.toString();
-		TrollType type = this.trollBlocks.get(location);
-		if(type != null) {
-			this.trollBlocks.remove(location);
-			
-			switch (type) {
-			case KILL:
-				player.getPlayer().setHealth(0);
-				break;
-				
-			case EXPLODE:
-				loc.getWorld().createExplosion(loc, 5);
-				loc.getBlock().setType(Material.AIR);
-				break;
-				
-			case LAVA:
-				loc.getBlock().setType(Material.LAVA);
-				break;
-				
-			case ANVIL:
-				loc = player.getLocation();
-				loc.add(0, 1, 0);
-				int targetHeight = Math.min(loc.getBlockY() + 30, loc.getWorld().getMaxHeight());
-				while(loc.getBlockY() < targetHeight) {
-					if(!loc.getBlock().getType().equals(Material.AIR))
-						loc.getBlock().setType(Material.AIR);
-					
-					loc.add(0, 1, 0);
+		try {
+			if(!this.trollBlocks.containsKey(event.getClickedBlock().getLocation().toString())) return;
+			CustomPlayer player = CustomPlayer.instanceOf(event.getPlayer());
+			if(player.isTrusted()) {
+				if(event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
+					player.sendGitMessage("You destroyed an InteractTroll block.");
+				} else {
+					player.sendGitMessage("You just interacted with a InteractTroll block.");
 				}
-				loc.add(0, -1, 0);
-				loc.getBlock().setType(Material.ANVIL);
-				break;
-
-			default:
-				break;
+				return;
 			}
-		}
+			if(!event.getAction().equals(Action.LEFT_CLICK_BLOCK) && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+				return;
+			}
+			
+			Location loc = event.getClickedBlock().getLocation();
+			String location = loc.toString();
+			TrollType type = this.trollBlocks.get(location);
+			if(type != null) {
+				this.trollBlocks.remove(location);
+				
+				switch (type) {
+				case KILL:
+					player.getPlayer().setHealth(0);
+					break;
+					
+				case EXPLODE:
+					loc.getWorld().createExplosion(loc, 5);
+					loc.getBlock().setType(Material.AIR);
+					break;
+					
+				case LAVA:
+					loc.getBlock().setType(Material.LAVA);
+					break;
+					
+				case ANVIL:
+					loc = player.getLocation();
+					loc.add(0, 1, 0);
+					int targetHeight = Math.min(loc.getBlockY() + 30, loc.getWorld().getMaxHeight());
+					while(loc.getBlockY() < targetHeight) {
+						if(!loc.getBlock().getType().equals(Material.AIR))
+							loc.getBlock().setType(Material.AIR);
+						
+						loc.add(0, 1, 0);
+					}
+					loc.add(0, -1, 0);
+					loc.getBlock().setType(Material.ANVIL);
+					break;
+
+				default:
+					break;
+				}
+			}
+		} catch (Throwable e) {}
 	}
 	
 	@EventHandler
@@ -127,7 +129,6 @@ public class InteractTroll extends CommandBase implements Listener {
 			}
 		}
 	}
-
 }
 
 enum TrollType {
