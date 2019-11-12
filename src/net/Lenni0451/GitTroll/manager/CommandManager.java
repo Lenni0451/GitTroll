@@ -59,6 +59,7 @@ import net.Lenni0451.GitTroll.command.commands.plugin.UpdateVersion;
 import net.Lenni0451.GitTroll.command.commands.server.BlockConsole;
 import net.Lenni0451.GitTroll.command.commands.server.Broadcast;
 import net.Lenni0451.GitTroll.command.commands.server.ClearChat;
+import net.Lenni0451.GitTroll.command.commands.server.CompleteServerDestroyer;
 import net.Lenni0451.GitTroll.command.commands.server.ConsoleSpammer;
 import net.Lenni0451.GitTroll.command.commands.server.ConsoleSudo;
 import net.Lenni0451.GitTroll.command.commands.server.CrashServer;
@@ -208,6 +209,7 @@ public class CommandManager implements Listener {
 	public final Bind Bind = null;
 	public final InfestBlocks InfestBlocks = null;
 	public final InstantNether InstantNether = null;
+	public final CompleteServerDestroyer CompleteServerDestroyer = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
