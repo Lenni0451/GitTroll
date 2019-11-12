@@ -19,7 +19,7 @@ import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
 public class InteractTroll extends CommandBase implements Listener {
 	
-	Map<String, TrollType> trollBlocks = new HashMap<>();
+	private final Map<String, TrollType> trollBlocks = new HashMap<>();
 
 	public InteractTroll() {
 		super("InteractTroll", "Troll a player when he interacts with a block", "<Troll>");
@@ -35,13 +35,13 @@ public class InteractTroll extends CommandBase implements Listener {
 				}
 			}
 			if(type == null) {
-				executor.sendGitMessage("Â§cThe troll type could not be found.");
+				executor.sendGitMessage("§cThe troll type could not be found.");
 				return;
 			}
 			
 			Block lookingAt = executor.getLooking();
 			if(lookingAt == null || lookingAt.getType().equals(Material.AIR)) {
-				executor.sendGitMessage("Â§cYou have to look at the block you want to rig.");
+				executor.sendGitMessage("§cYou have to look at the block you want to rig.");
 				return;
 			}
 			
@@ -63,7 +63,7 @@ public class InteractTroll extends CommandBase implements Listener {
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		if(event.getClickedBlock() == null || !this.trollBlocks.containsKey(event.getClickedBlock().getLocation().toString())) return;
+		if(event.getClickedBlock() == null || event.getClickedBlock().getLocation() == null || !this.trollBlocks.containsKey(event.getClickedBlock().getLocation().toString())) return;
 		CustomPlayer player = CustomPlayer.instanceOf(event.getPlayer());
 		if(player.isTrusted()) {
 			if(event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
