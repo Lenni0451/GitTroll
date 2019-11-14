@@ -10,10 +10,12 @@ import net.Lenni0451.GitTroll.command.CommandBase;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 
-public class Nuke extends CommandBase {
+public class EssentialsNuke extends CommandBase {
 
-	public Nuke() {
-		super("Nuke", "Let tnt fly from the sky");
+	public EssentialsNuke() {
+		super("EssentialsNuke", "Let tnt fly from the sky");
+		
+		this.addAlias("essnuke");
 	}
 
 	@Override

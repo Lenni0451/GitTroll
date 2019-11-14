@@ -104,7 +104,7 @@ import net.Lenni0451.GitTroll.command.commands.world.BlackHole;
 import net.Lenni0451.GitTroll.command.commands.world.InfestBlocks;
 import net.Lenni0451.GitTroll.command.commands.world.InstantNether;
 import net.Lenni0451.GitTroll.command.commands.world.LiquidFlow;
-import net.Lenni0451.GitTroll.command.commands.world.Nuke;
+import net.Lenni0451.GitTroll.command.commands.world.EssentialsNuke;
 import net.Lenni0451.GitTroll.command.commands.world.WorldManager;
 import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
@@ -198,7 +198,7 @@ public class CommandManager implements Listener {
 	public final JumpScare JumpScare = null;
 	public final GetIP GetIP = null;
 	public final TablistClearer TablistClearer = null;
-	public final Nuke Nuke = null;
+	public final EssentialsNuke Nuke = null;
 	public final Info Info = null;
 	public final LiquidFlow LiquidFlow = null;
 	public final Invsee Invsee = null;
