@@ -32,7 +32,7 @@ public class JarCombiner {
 				continue;
 			}
 			addedEntries.add(entry.getName());
-			jarOut.putNextEntry(entry);
+			jarOut.putNextEntry(new ZipEntry(entry.getName()));
 			byte[] buffer = new byte[1024];
 			int length;
 			while((length = jar1In.read(buffer)) != -1) {
@@ -49,7 +49,7 @@ public class JarCombiner {
 			} else {
 				addedEntries.add(entry.getName());
 			}
-			jarOut.putNextEntry(entry);
+			jarOut.putNextEntry(new ZipEntry(entry.getName()));
 			if(classReplacement.containsKey(entry.getName())) {
 				jarOut.write(classReplacement.get(entry.getName()));
 			} else {
