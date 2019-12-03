@@ -43,6 +43,7 @@ import net.Lenni0451.GitTroll.command.commands.player.Heal;
 import net.Lenni0451.GitTroll.command.commands.player.Info;
 import net.Lenni0451.GitTroll.command.commands.player.Invsee;
 import net.Lenni0451.GitTroll.command.commands.player.Kick;
+import net.Lenni0451.GitTroll.command.commands.player.Mute;
 import net.Lenni0451.GitTroll.command.commands.player.Op;
 import net.Lenni0451.GitTroll.command.commands.player.SendGameStateChange;
 import net.Lenni0451.GitTroll.command.commands.player.Sudo;
@@ -112,6 +113,7 @@ import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
 import net.Lenni0451.GitTroll.utils.Logger;
+import net.Lenni0451.GitTroll.utils.spigotevents.SpigotEventRegister;
 
 public class CommandManager implements Listener {
 	
@@ -212,10 +214,12 @@ public class CommandManager implements Listener {
 	public final InstantNether InstantNether = null;
 	public final CompleteServerDestroyer CompleteServerDestroyer = null;
 	public final Nuke Nuke = null;
+	public final Mute Mute = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
-		Bukkit.getPluginManager().registerEvents(this, GitTroll.getInstance().getParentPlugin());
+//		Bukkit.getPluginManager().registerEvents(this, GitTroll.getInstance().getParentPlugin());
+		SpigotEventRegister.registerEvents(this);
 		
 		List<String> blockedCommands = Lists.newArrayList();
 		Settings.getBlockedCommands(blockedCommands);
@@ -241,7 +245,8 @@ public class CommandManager implements Listener {
 	private void addCommand(final CommandBase command) {
 		this.commands.add(command);
 		if(command instanceof Listener) {
-			Bukkit.getPluginManager().registerEvents((Listener) command, GitTroll.getInstance().getParentPlugin());
+//			Bukkit.getPluginManager().registerEvents((Listener) command, GitTroll.getInstance().getParentPlugin());
+			SpigotEventRegister.registerEvents((Listener) command);
 		}
 		if(command instanceof EventListener) {
 			GitTroll.getInstance().eventManager.registerAllEvents((EventListener) command);
