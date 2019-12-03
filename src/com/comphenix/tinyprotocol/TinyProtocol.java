@@ -1,21 +1,10 @@
 package com.comphenix.tinyprotocol;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelDuplexHandler;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.ChannelPromise;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,6 +22,16 @@ import com.comphenix.tinyprotocol.Reflection.MethodInvoker;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
 import com.mojang.authlib.GameProfile;
+
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelDuplexHandler;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.ChannelPromise;
+import net.Lenni0451.GitTroll.utils.spigotevents.SpigotEventRegister;
 
 /**
  * Represents a very tiny alternative to ProtocolLib.
@@ -104,16 +103,21 @@ public abstract class TinyProtocol {
 			registerPlayers(plugin);
 		} catch (IllegalArgumentException ex) {
 			// Damn you, late bind
-			plugin.getLogger().info("[TinyProtocol] Delaying server channel injection due to late bind.");
+			// Changed: Removed console log
+//			plugin.getLogger().info("[TinyProtocol] Delaying server channel injection due to late bind.");
 
 			new BukkitRunnable() {
 				@Override
 				public void run() {
 					registerChannelHandler();
 					registerPlayers(plugin);
-					plugin.getLogger().info("[TinyProtocol] Late bind injection successful.");
+					// Changed: Removed console log
+//					plugin.getLogger().info("[TinyProtocol] Late bind injection successful.");
 				}
 			}.runTask(plugin);
+			// Changed: Added catch Throwable
+		} catch(Throwable t) {
+			//Do nothing
 		}
 	}
 
@@ -131,8 +135,10 @@ public abstract class TinyProtocol {
 							channel.eventLoop().submit(() -> injectChannelInternal(channel));
 						}
 					}
-				} catch (Exception e) {
-					plugin.getLogger().log(Level.SEVERE, "Cannot inject incomming channel " + channel, e);
+					// Changed: Exception to Throwable
+				} catch (Throwable e) {
+					// Changed: Removed console log
+//					plugin.getLogger().log(Level.SEVERE, "Cannot inject incomming channel " + channel, e);
 				}
 			}
 
@@ -181,7 +187,8 @@ public abstract class TinyProtocol {
 					if (!uninjectedChannels.contains(channel)) {
 						injectPlayer(e.getPlayer());
 					}
-				} catch (Exception e2) {}
+					// Changed: Exception to Throwable
+				} catch (Throwable e2) {}
 			}
 
 			@EventHandler
@@ -193,7 +200,9 @@ public abstract class TinyProtocol {
 
 		};
 
-		plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+		// Changed: Using custom event register
+//		plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+		SpigotEventRegister.registerEvents(listener);
 	}
 
 	private void registerChannelHandler() {
@@ -237,7 +246,8 @@ public abstract class TinyProtocol {
 				public void run() {
 					try {
 						pipeline.remove(serverChannelHandler);
-					} catch (NoSuchElementException e) {
+						// Changed: NoSuchElementException to Throwable
+					} catch (Throwable e) {
 						// That's fine
 					}
 				}
@@ -381,6 +391,9 @@ public abstract class TinyProtocol {
 		} catch (IllegalArgumentException e) {
 			// Try again
 			return (PacketInterceptor) channel.pipeline().get(handlerName);
+			// Changed: Added catch Throwable
+		} catch(Throwable t) {
+			return null;
 		}
 	}
 
@@ -435,7 +448,8 @@ public abstract class TinyProtocol {
 					channel.pipeline().remove(handlerName);
 				}
 			});
-		} catch (Exception e) {}
+			// Changed: Exception to Throwable
+		} catch (Throwable e) {}
 	}
 
 	/**
@@ -496,8 +510,10 @@ public abstract class TinyProtocol {
 
 			try {
 				msg = onPacketInAsync(player, channel, msg);
+				// Changed: Exception to Throwable
 			} catch (Exception e) {
-				plugin.getLogger().log(Level.SEVERE, "Error in onPacketInAsync().", e);
+				// Changed: Removed console log
+//				plugin.getLogger().log(Level.SEVERE, "Error in onPacketInAsync().", e);
 			}
 
 			if (msg != null) {
@@ -509,8 +525,10 @@ public abstract class TinyProtocol {
 		public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
 			try {
 				msg = onPacketOutAsync(player, ctx.channel(), msg);
+				// Changed: Exception to Throwable
 			} catch (Exception e) {
-				plugin.getLogger().log(Level.SEVERE, "Error in onPacketOutAsync().", e);
+				// Changed: Removed console log
+//				plugin.getLogger().log(Level.SEVERE, "Error in onPacketOutAsync().", e);
 			}
 
 			if (msg != null) {
