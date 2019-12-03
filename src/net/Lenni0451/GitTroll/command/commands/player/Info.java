@@ -13,6 +13,7 @@ public class Info extends CommandBase {
 
 	public Info() {
 		super("Info", "Get some information about online players");
+		this.addAlias("list");
 	}
 
 	@Override
