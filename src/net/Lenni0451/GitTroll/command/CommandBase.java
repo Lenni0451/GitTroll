@@ -77,7 +77,7 @@ public abstract class CommandBase {
 	}
 	
 	
-	public abstract void execute(final CustomPlayer executor, final ArrayHelper args);
+	public abstract void execute(final CustomPlayer executor, final ArrayHelper args) throws Throwable;
 	public abstract void tabComplete(final List<String> tabComplete, final ArrayHelper args);
 	
 }

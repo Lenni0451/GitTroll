@@ -19,26 +19,21 @@ public class SetSlots extends CommandBase {
 	}
 
 	@Override
-	public void execute(CustomPlayer executor, ArrayHelper args) {
+	public void execute(CustomPlayer executor, ArrayHelper args) throws Throwable {
 		if(args.isLength(1) && args.isInteger(0)) {
-			try {
-				Server server = Bukkit.getServer();
-				if(!(server instanceof CraftServer)) {
-					executor.sendGitMessage("§cCould not set slot count.");
-					executor.sendGitMessage("§cThe Bukkit.getServer() method returned an invalid server type.");
-					return;
-				}
-				
-				CraftServer craftServer = (CraftServer) server;
-				PlayerList playerList = craftServer.getHandle();
-				Field maxPlayersField = PlayerList.class.getDeclaredField("maxPlayers");
-				maxPlayersField.setAccessible(true);
-				maxPlayersField.set(playerList, args.getInteger(0));
-				executor.sendGitMessage("Successfully set the max player count.");
-			} catch (Exception e) {
+			Server server = Bukkit.getServer();
+			if(!(server instanceof CraftServer)) {
 				executor.sendGitMessage("§cCould not set slot count.");
-				executor.sendGitMessage("§cAn unknown error occurred: §6" + e.getClass().getSimpleName());
+				executor.sendGitMessage("§cThe Bukkit.getServer() method returned an invalid server type.");
+				return;
 			}
+			
+			CraftServer craftServer = (CraftServer) server;
+			PlayerList playerList = craftServer.getHandle();
+			Field maxPlayersField = PlayerList.class.getDeclaredField("maxPlayers");
+			maxPlayersField.setAccessible(true);
+			maxPlayersField.set(playerList, args.getInteger(0));
+			executor.sendGitMessage("Successfully set the max player count.");
 		} else {
 			this.commandWrong();
 		}

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.event.types.Event;
+import net.Lenni0451.GitTroll.utils.ExceptionProvider;
 import net.Lenni0451.GitTroll.utils.Logger;
 
 public class EventManager {
@@ -42,7 +43,7 @@ public class EventManager {
 			if(currentEvents != null) currentEvents.forEach((EventListener listener) -> listener.onEvent(event));
 		} catch (Throwable e) {
 			Logger.broadcastGitMessage("§cAn unknown error occurred whilst calling event §6" + event.getClass().getSimpleName() + ".");
-			Logger.broadcastGitMessage("§aException§7: §6" + e.getClass().getSimpleName() + (e.getMessage() != null ? (" §7| §c" + e.getMessage()) : ("")));
+			Logger.broadcastGitMessage(ExceptionProvider.prepareExceptionForChat(e));
 		}
 	}
 	

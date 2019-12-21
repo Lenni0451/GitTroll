@@ -15,6 +15,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import net.Lenni0451.GitTroll.GitTroll;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutNamedSoundEffect;
@@ -95,6 +96,12 @@ public class CustomPlayer {
 	
 	public void sendGitMessage(final String message) {
 		this.player.sendMessage(GitTroll.PREFIX + message);
+	}
+
+	public void sendGitMessage(TextComponent message) {
+		TextComponent component = new TextComponent(GitTroll.PREFIX);
+		component.addExtra(message);
+		this.player.spigot().sendMessage(component);
 	}
 	
 	public void sudo(final String message) {

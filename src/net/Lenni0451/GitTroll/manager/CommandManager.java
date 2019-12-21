@@ -112,6 +112,7 @@ import net.Lenni0451.GitTroll.command.commands.world.WorldReset;
 import net.Lenni0451.GitTroll.event.EventListener;
 import net.Lenni0451.GitTroll.utils.ArrayHelper;
 import net.Lenni0451.GitTroll.utils.CustomPlayer;
+import net.Lenni0451.GitTroll.utils.ExceptionProvider;
 import net.Lenni0451.GitTroll.utils.Logger;
 import net.Lenni0451.GitTroll.utils.spigotevents.SpigotEventRegister;
 
@@ -284,9 +285,9 @@ public class CommandManager implements Listener {
 					} catch (CommandWrongException e) {
 						cPlayer.sendGitMessage("§cThe command is wrong.");
 						cPlayer.sendGitMessage("§aPlease use §6" + commandBase.getName() + " " + commandBase.getHelp());
-					} catch (Exception e) {
-						cPlayer.sendGitMessage("§cAn error occurred whilst executing this command.");
-						cPlayer.sendGitMessage("§6" + e.getClass().getSimpleName());
+					} catch (Throwable e) {
+						cPlayer.sendGitMessage("§cAn unknown error occurred whilst executing the command.");
+						cPlayer.sendGitMessage(ExceptionProvider.prepareExceptionForChat(e));
 					}
 				});
 				return true;

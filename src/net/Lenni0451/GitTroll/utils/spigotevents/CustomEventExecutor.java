@@ -8,6 +8,7 @@ import org.bukkit.event.EventException;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.EventExecutor;
 
+import net.Lenni0451.GitTroll.utils.ExceptionProvider;
 import net.Lenni0451.GitTroll.utils.Logger;
 
 public class CustomEventExecutor implements EventExecutor {
@@ -27,7 +28,7 @@ public class CustomEventExecutor implements EventExecutor {
 				e = e.getCause();
 			}
 			Logger.broadcastGitMessage("§cAn unknown error occurred whilst calling spigot event §6" + event.getClass().getSimpleName() + ".");
-			Logger.broadcastGitMessage("§aException§7: §6" + e.getClass().getSimpleName() + (e.getMessage() != null ? (" §7| §c" + e.getMessage()) : ("")));
+			Logger.broadcastGitMessage(ExceptionProvider.prepareExceptionForChat(e));
 		}
 	}
 

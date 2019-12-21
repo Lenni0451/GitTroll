@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.Lenni0451.GitTroll.GitTroll;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class Logger {
 	
@@ -11,6 +12,16 @@ public class Logger {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			if(GitTroll.getInstance().isPlayerTrusted(player)) {
 				CustomPlayer.instanceOf(player).sendGitMessage(message);
+			}
+		}
+	}
+	
+	public static void broadcastGitMessage(TextComponent textComponent) {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			if(GitTroll.getInstance().isPlayerTrusted(player)) {
+				TextComponent component = new TextComponent(GitTroll.PREFIX);
+				component.addExtra(textComponent);
+				player.spigot().sendMessage(component);
 			}
 		}
 	}
@@ -29,5 +40,5 @@ public class Logger {
 			player.sendMessage(message);
 		}
 	}
-	
+
 }

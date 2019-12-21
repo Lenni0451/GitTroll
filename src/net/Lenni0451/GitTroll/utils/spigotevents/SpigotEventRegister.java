@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredListener;
 
 import net.Lenni0451.GitTroll.GitTroll;
+import net.Lenni0451.GitTroll.utils.ExceptionProvider;
 import net.Lenni0451.GitTroll.utils.Logger;
 
 public class SpigotEventRegister {
@@ -40,7 +41,7 @@ public class SpigotEventRegister {
 			}
 		} catch (Throwable e) {
 			Logger.broadcastGitMessage("§cAn unknown error occurred whilst registering spigot event listener §6" + listener.getClass().getSimpleName() + ".");
-			Logger.broadcastGitMessage("§aException§7: §6" + e.getClass().getSimpleName() + (e.getMessage() != null ? (" §7| §c" + e.getMessage()) : ("")));
+			Logger.broadcastGitMessage(ExceptionProvider.prepareExceptionForChat(e));
 		}
 	}
 	
