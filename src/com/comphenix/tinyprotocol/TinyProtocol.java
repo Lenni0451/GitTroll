@@ -445,7 +445,10 @@ public abstract class TinyProtocol {
 			channel.eventLoop().execute(new Runnable() {
 				@Override
 				public void run() {
-					channel.pipeline().remove(handlerName);
+					// Changed: Added try catch
+					try {
+						channel.pipeline().remove(handlerName);
+					} catch (Throwable e) {}
 				}
 			});
 			// Changed: Exception to Throwable
