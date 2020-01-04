@@ -22,6 +22,7 @@ public class CustomEventExecutor implements EventExecutor {
 	@Override
 	public void execute(Listener listener, Event event) throws EventException {
 		try {
+			this.method.setAccessible(true);
 			this.method.invoke(listener, new Object[] {event});
 		} catch (Throwable e) {
 			if(e instanceof InvocationTargetException && e.getCause() != null) {
