@@ -53,5 +53,4 @@ public class Blind extends CommandBase {
             this.tabCompletePlayers(tabComplete);
         }
     }
-
 }
