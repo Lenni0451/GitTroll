@@ -190,6 +190,7 @@ public class CommandManager implements Listener {
 	public final Nuke Nuke = null;
 	public final Mute Mute = null;
 	public final Blind Blind = null;
+	public final ColorShift ColorShift = null;
 	
 	public CommandManager() {
 		this.commands = new ArrayList<>();
