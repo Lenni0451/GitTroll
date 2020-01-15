@@ -29,8 +29,7 @@ public class ColorShift extends CommandBase implements EventListener {
                     player.sendPacket(new PacketPlayOutGameStateChange(8, 40));
                     player.sendPacket(new PacketPlayOutGameStateChange(2, 1));
                 }
-            } catch (Throwable ignored) {
-            }
+            } catch (Throwable ignored) {}
         }, 1, 1);
     }
 
@@ -69,8 +68,7 @@ public class ColorShift extends CommandBase implements EventListener {
                         Field b = PacketPlayOutUpdateTime.class.getDeclaredField("b");
                         b.setAccessible(true);
                         b.set(packet, 4000);
-                    } catch (Throwable ignored) {
-                    }
+                    } catch (Throwable ignored) {}
                 }
             }
         }

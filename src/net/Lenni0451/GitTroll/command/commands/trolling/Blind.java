@@ -25,8 +25,7 @@ public class Blind extends CommandBase {
                     player.sendPacket(new PacketPlayOutEntityEffect(player.getPlayer().getEntityId(), new MobEffect(15, Integer.MAX_VALUE, Integer.MAX_VALUE, false, false)));
                     player.sendPacket(new PacketPlayOutEntityEffect(player.getPlayer().getEntityId(), new MobEffect(16, Integer.MAX_VALUE, Integer.MAX_VALUE, false, false)));
                 }
-            } catch (Throwable ignored) {
-            }
+            } catch (Throwable ignored) {}
         }, 1, 1);
     }
 
