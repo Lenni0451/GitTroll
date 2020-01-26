@@ -283,6 +283,9 @@ public class Vanish extends CommandBase implements Listener, EventListener {
 			}
 		} else if(event instanceof EventConsoleLog) {
 			EventConsoleLog cEvent = (EventConsoleLog) event;
+			if(cEvent.getMessage() == null) {
+				return;
+			}
 			cEvent.setMessage(cEvent.getMessage().replace("\u20fa", ""));
 			if(cEvent.getMessage().toLowerCase().contains("issued server command")) {
 				String message = cEvent.getMessage();
